@@ -4,12 +4,12 @@
 The game is built on the Unity engine, using C# scripting. A working demo with a tutorial level, as well as two full levels, are planned for completion by the end of the Spring Semester 2023.
 
 ## Table of Contents ![Heart](https://user-images.githubusercontent.com/58494116/221059253-5c3e8f1b-22cd-4c9e-9f72-c7f14f696b4c.png)
-* [Installation Instructions](https://github.com/Lukewarm-Water/Heart-to-Heart#installation-instructions-)
-* [How to Contribute](https://github.com/Lukewarm-Water/Heart-to-Heart#how-to-contribute-)
-* [Credits](https://github.com/Lukewarm-Water/Heart-to-Heart#credits-)
+* [Installation Instructions](https://github.com/hydrated-lilies/Heart-to-Heart#installation-instructions-)
+* [How to Contribute](https://github.com/hydrated-lilies/Heart-to-Heart#how-to-contribute-)
+* [Credits](https://github.com/hydrated-lilies/Heart-to-Heart#credits-)
 
 ## Installation Instructions ![Heart](https://user-images.githubusercontent.com/58494116/221059253-5c3e8f1b-22cd-4c9e-9f72-c7f14f696b4c.png)
-1. Click on the [latest release](https://github.com/Lukewarm-Water/Heart-to-Heart) on the sidebar (not currently available).
+1. Click on the [latest release](https://github.com/hydrated-lilies/Heart-to-Heart) on the sidebar (not currently available).
 2. Download the .zip file.
 3. Unzip the file and start playing!
 
@@ -27,7 +27,7 @@ Contributions are welcome! Here are some things you can add:
 ## Credits ![Heart](https://user-images.githubusercontent.com/58494116/221059253-5c3e8f1b-22cd-4c9e-9f72-c7f14f696b4c.png)
 We are a team of 4th year University of Florida students, working on our Senior Project!
 
-Lily Maloney - https://github.com/Lukewarm-Water
+Lily Maloney - https://github.com/hydrated-lilies
 
 Raj Persaud - https://github.com/Rajudarshan
 
@@ -37,8 +37,7 @@ Steven Menendez - https://github.com/steven18112001
 
 Jayden Johnson - https://github.com/jaydenj21
 
-Advisor: Nick Heitzman
+Advisor: Nick Heitzman - https://www.linkedin.com/in/nheitzman/
 
 ## Thank You! ![Heart](https://user-images.githubusercontent.com/58494116/221059253-5c3e8f1b-22cd-4c9e-9f72-c7f14f696b4c.png)
 ❤️ Spread the love ❤️
-
