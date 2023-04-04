@@ -183,3 +183,14 @@
 [Line] Got plenty of work to catch up from when I was gone.
 [Line] I bet some music'll help me get in the grove!
 [Toggle] Aria
+
+[Load Game] tutorial
+
+[Toggle] Aria
+[Character] Aria [EXPR] Surprise [POSE] Down
+[Line] Huh. Not nearly as bad as I was expecting.
+[Character] Aria [EXPR] Regret [POSE] Closed
+[Line] Though I'm still a bit behind....
+[Character] Aria [EXPR] Wink [POSE] Point
+[Line] Not bad for a first day back though!
+[Line] I'll be back on track in no time!

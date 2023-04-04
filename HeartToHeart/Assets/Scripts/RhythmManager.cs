@@ -6,10 +6,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class RhythmManager : MonoBehaviour
 {
+    // reference to visual novel control scene
+    public VN_Control parent = null;
+
     // values to track health, score, and combo
     public int health;     // VARIABLE
     public int combo;
-    int score;
     public GameObject gradePrefab;
     public GameObject gradeLocationRight, gradeLocationLeft, gradeLocationUp, gradeLocationDown;
     public Sprite perfect, good, bad;
@@ -22,14 +24,15 @@ public class RhythmManager : MonoBehaviour
     public bool inv; // true if invincible. We can have this on true for the tutorial stage!
     public Text comboText;
 
-
     // invincibility frames
     static float invTime = 2.0f;
 
     // bool for advancing notes
     bool notePause = false;
-    // song to play
+
+    // song source + songs
     public AudioSource audSource;
+    public List<AudioClip> musicTracks;
 
     // track for notes
     List<Note> notes;
@@ -53,14 +56,16 @@ public class RhythmManager : MonoBehaviour
         // init ints
         health = 4; // change this based on difficulty
         combo = 0;
-        score = 0;
         inv = false;
 
-        heart = GameObject.Find("Heart").GetComponent<HeartControl>();
+        // get camera for canvas
+        GameObject.Find("GameScreenCanvas").GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
+        // note lists
         holdNotes = noteGen.getHoldNotes("Assets/Map/tutorial/holdMap.txt");
-
         notes = noteGen.getNotes("Assets/Map/tutorial/map.txt");
+
+        // timing loading
         gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
         perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
         gradePrefab.GetComponent<SpriteRenderer>().sprite = good;
@@ -69,17 +74,39 @@ public class RhythmManager : MonoBehaviour
         badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
         setZero();
 
-        // FIXME: FIGURE OUT WHY THERE ARE DEFAULT NOTES WITH A TIME = 0 INTHE FIELD
+        // set song
+        notePause = true;
+        audSource.clip = musicTracks[0];
 
+        Invoke("startSong", 2f);
+    }
+
+    public void setMusicTrack(int track, GameObject vnReference)
+    {
+        parent = vnReference.GetComponent<VN_Control>();
+        audSource.clip = musicTracks[track];
+    }
+
+    public void startSong()
+    {
         audSource.Play();
+        notePause = false;
     }
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         // if the song is over, tell someone
         if (!(audSource.isPlaying || notePause))
+        {
             print("song over!");
+
+            // if not null tell the vn to delete this prefab and continue the VN
+            if (parent != null)
+                parent.CompleteSong();
+            else
+                SceneManager.LoadScene(0);
+        }
 
         if (!notePause)
             advanceNotes();

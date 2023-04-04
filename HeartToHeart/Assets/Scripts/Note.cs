@@ -50,6 +50,9 @@ public class Note : MonoBehaviour
         time = _time;
         type = _type;
         GetComponent<SpriteRenderer>().sprite = sprite;
+
+        // draw note for positioning
+        drawNote();
     }
 
     void drawNote()

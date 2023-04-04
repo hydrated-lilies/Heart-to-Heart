@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class VN_Control : MonoBehaviour
 {
@@ -41,6 +42,10 @@ public class VN_Control : MonoBehaviour
     // sounds for text crawling and clicking noises
     public AudioSource txtBeep;
 
+    // container for game prefab
+    public GameObject gamePrefab;
+    GameObject rhythmComponent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,8 +68,12 @@ public class VN_Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("l"))
+            CompleteSong();
+
         // check to see if button was pressed
-        if(interactable && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)))
+        if(interactable && 
+            (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)))
         {
             // if true set text to be finished immediately
             if (crawling)
@@ -81,6 +90,8 @@ public class VN_Control : MonoBehaviour
         // at end of script, deactivate textbox and characters
         if (index > VNScript.Count - 1)
         {
+            SceneManager.LoadScene(0);
+
             textbox.SetActive(false);
             //cManager.FadeCharacterInOut(false);
             //cManager.FadeCharacterInOut(true);
@@ -88,7 +99,7 @@ public class VN_Control : MonoBehaviour
         }
 
         // check for commands that don't affect the screen
-        while(VNScript[index].Contains("[Character]") || VNScript[index].Contains("[Toggle]") || VNScript[index] == "")
+        while (VNScript[index].Contains("[Character]") || VNScript[index].Contains("[Toggle]") || VNScript[index] == "")
         {
             if (VNScript[index].Contains("[Character]"))
                 cManager.ParseCharacter(VNScript[index].Substring(12));
@@ -143,6 +154,47 @@ public class VN_Control : MonoBehaviour
                 ChangeBG(bgName, false);
             }
         }
+        else if (VNScript[index].Contains("[Load Game]"))
+        {
+            string song = VNScript[index].Substring(12);
+
+            // load in prefab
+            rhythmComponent = Instantiate(gamePrefab);
+            
+            // feed it the song it needs
+            switch (song)
+            {
+                default:
+                case "tutorial":
+                    rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
+                    break;
+            }
+
+            // disable VN interactability
+            txt.gameObject.GetComponentInParent<Image>().gameObject.SetActive(false);
+            interactable = false;
+
+            // dimbg, clear text
+            StartCoroutine(DimBG(0.35f, 1f));
+            txt.text = "";
+
+            // start song
+            rhythmComponent.GetComponentInChildren<RhythmManager>().startSong();
+        }
+    }
+
+    public void CompleteSong()
+    {
+        Destroy(rhythmComponent);
+
+        // let the VN be usable again
+        txt.gameObject.GetComponentInParent<Image>(true).gameObject.SetActive(true);
+        interactable = true;
+
+        // undim bg
+        StartCoroutine(DimBG(1f, 1f));
+
+        ReadNextLine();
     }
 
     IEnumerator Type(string line, Color col, float speed, float pitch)
@@ -269,5 +321,27 @@ public class VN_Control : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         interactable = true;
+    }
+    IEnumerator DimBG(float level, float duration)
+    {
+        // wait for a brief moment
+        yield return new WaitForSeconds(duration);
+
+        float curLevel = currBg.color.a;
+        float step = (level - curLevel) / duration;
+
+        float curTime = 0f;
+
+        while (curTime < duration)
+        {
+            curTime += Time.deltaTime;
+            currBg.color = new Color(1, 1, 1, curLevel + (step * curTime));
+
+            yield return null;
+        }
+
+        currBg.color = new Color(1, 1, 1, level);
+
+        // then set to min/max to make sure we have no floating point issues
     }
 }
