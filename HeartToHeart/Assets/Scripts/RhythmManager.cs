@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
+
 public class RhythmManager : MonoBehaviour
 {
     // reference to visual novel control scene
@@ -104,8 +104,6 @@ public class RhythmManager : MonoBehaviour
             // if not null tell the vn to delete this prefab and continue the VN
             if (parent != null)
                 parent.CompleteSong();
-            else
-                SceneManager.LoadScene(0);
         }
 
         if (!notePause)
@@ -121,6 +119,8 @@ public class RhythmManager : MonoBehaviour
             else
                 audSource.Play();
         }
+        else if (Input.GetKeyDown("h"))
+            SceneManager.LoadScene(0);
     }
 
     void advanceNotes()

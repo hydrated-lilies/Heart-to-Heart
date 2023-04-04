@@ -185,7 +185,7 @@ public class titleEvents : MonoBehaviour
              *  3 = TUTORIAL
              */
             Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;    // quit for editor
+            // UnityEditor.EditorApplication.isPlaying = false;    // quit for editor
         }
     }
     IEnumerator moveTitle(float endPos)

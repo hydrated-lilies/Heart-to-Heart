@@ -13,6 +13,7 @@ public class NoteGen : MonoBehaviour
     public GameObject prefab;
     public GameObject prefab2;
     Vector3 scaleChange;
+
     // Start is called before the first frame update
     void Start()
     {

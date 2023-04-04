@@ -210,8 +210,10 @@ public class CharacterManager : MonoBehaviour
 
         // find the character asked for. then, set it to be active
         foreach (Character letter in characters)
-            if (letter.getName() == input)
+            if (letter.getName().Contains(input) || input.Contains(letter.getName()))
             {
+                print("set active");
+
                 SetActive(letter);
                 ChangeNPC(letter.getName());
                 break;
@@ -371,36 +373,24 @@ public class CharacterManager : MonoBehaviour
         int newIndex = 0;
 
         // change aria's expression to the open variant of the expression
-        switch (expr)
-        {
-            case "Happy":         // index 0
-                newIndex = 0;
-                break;
-            case "Silly":         // index 2
-                newIndex = 2;
-                break;
-            case "Worried":       // index 4
-                newIndex = 4;
-                break;
-            case "Confused":      // index 6
-                newIndex = 6;
-                break;
-            case "Excited":       // index 8
-                newIndex = 8;
-                break;
-            case "Wink":
-                newIndex = 10;
-                break;
-            case "Surprise":
-                newIndex = 12;
-                break;
-            case "Regret":
-                newIndex = 14;
-                break;
-            default:
-                print("error, no expression found");
-                break;
-        }
+        if (expr.Contains("Happy"))
+            newIndex = 0;
+        else if (expr.Contains("Silly"))
+            newIndex = 2;
+        else if (expr.Contains("Worried"))
+            newIndex = 4;
+        else if (expr.Contains("Confused"))
+            newIndex = 6;
+        else if (expr.Contains("Excited"))
+            newIndex = 8;
+        else if (expr.Contains("Wink"))
+            newIndex = 10;
+        else if (expr.Contains("Surprise"))
+            newIndex = 12;
+        else if (expr.Contains("Regret"))
+            newIndex = 14;
+        else
+            print("error, no expression found for: " + expr);
 
         characters[0].setExpIndex(newIndex);
         aria_expr.texture = aExpr[newIndex];
@@ -410,24 +400,16 @@ public class CharacterManager : MonoBehaviour
         int newIndex = 0;
 
         // change npc's expression to the open variant of wesley's expression
-        switch (expr)
-        {
-            case "Frown":         // index 0
-                newIndex = 0;
-                break;
-            case "Smile":         // index 2
-                newIndex = 2;
-                break;
-            case "Scared":       // index 4
-                newIndex = 4;
-                break;
-            case "Worried":      // index 6
-                newIndex = 6;
-                break;
-            default:
-                print("error, no expression found");
-                break;
-        }
+        if (expr.Contains("Frown"))
+            newIndex = 0;
+        else if (expr.Contains("Smile"))
+            newIndex = 2;
+        else if (expr.Contains("Scared"))
+            newIndex = 4;
+        else if (expr.Contains("Worried"))
+            newIndex = 6;
+        else
+            print("error, no expression found");
 
         characters[1].setExpIndex(newIndex);
         npc_expr.texture = wExpr[newIndex];
@@ -435,17 +417,21 @@ public class CharacterManager : MonoBehaviour
     void SetExpressionCarrie(string expr)
     {
         // carrie only has one expression
-        switch (expr)
+        if (expr.Contains("Neutral"))
         {
-            default:
-            case "Neutral":
-                npc_expr.texture = cExpr[0];
-                characters[2].setExpIndex(0);
-                break;
+            npc_expr.texture = cExpr[0];
+            characters[2].setExpIndex(0);
+        }
+        else
+        {
+            print("somehow managed to mistype carrie's default pos");
+            npc_expr.texture = cExpr[0];
+            characters[2].setExpIndex(0);
         }
     }
     void SetExpressionMisc(string expr)
     {
+        // TODO: EXPAND FOR MORE MISC TEXTURES
         npc_expr.texture = misc[0];
     }
 
@@ -472,21 +458,16 @@ public class CharacterManager : MonoBehaviour
     {
         int newIndex = 0;
 
-        switch (pose)
-        {
-            case "Open":
-                newIndex = 0;
-                break;
-            case "Closed":
-                newIndex = 1;
-                break;
-            case "Down":
-                newIndex = 2;
-                break;
-            case "Point":
-                newIndex = 3;
-                break;
-        }
+        if (pose.Contains("Open"))
+            newIndex = 0;
+        else if (pose.Contains("Closed"))
+            newIndex = 1;
+        else if (pose.Contains("Down"))
+            newIndex = 2;
+        else if (pose.Contains("Point"))
+            newIndex = 3;
+        else
+            print("missing pose for Aria: " + pose);
 
         characters[0].setPoseIndex(newIndex);
         aria_body.texture = aPose[newIndex];
@@ -495,35 +476,36 @@ public class CharacterManager : MonoBehaviour
     {
         int newIndex = 0;
 
-        switch (pose)
-        {
-            case "Open":
-                newIndex = 0;
-                break;
-            case "Closed":
-                newIndex = 1;
-                break;
-            case "Hold":
-                newIndex = 2;
-                break;
-        }
+        if (pose.Contains("Open"))
+            newIndex = 0;
+        else if (pose.Contains("Closed"))
+            newIndex = 1;
+        else if (pose.Contains("Hold"))
+            newIndex = 2;
+        else
+            print("missing pose for Wesley: " + pose);
 
         characters[1].setPoseIndex(newIndex);
         npc_body.texture = wPose[newIndex];
     }
     void SetPoseCarrie(string pose)
     {
-        switch (pose)
+        if (pose.Contains("Down"))
         {
-            default:
-            case "Down":
-                npc_body.texture = cPose[0];
-                characters[2].setPoseIndex(0);
-                break;
+            npc_body.texture = cPose[0];
+            characters[2].setPoseIndex(0);
+        }
+        else
+        {
+            npc_body.texture = cPose[0];
+            characters[2].setPoseIndex(0);
+
+            print("mistyped carrie's only pose: " + pose);
         }
     }
     void SetPoseMic(string pose)
     {
+        // TODO: EXPAND FOR MORE MISC TEXTURES
         npc_body.texture = misc[0];
     }
 

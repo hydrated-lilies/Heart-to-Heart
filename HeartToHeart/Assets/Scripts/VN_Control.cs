@@ -61,8 +61,12 @@ public class VN_Control : MonoBehaviour
 
     void ReadScript(int sceneNumber)
     {
-        // read lines in from the file, store in a data type
-        VNScript = File.ReadAllLines("Assets/VN_Files/scene" + sceneNumber + ".vn").ToList();
+        // read lines using the stupid resources operation becaue of course this shit is packaged away in a place where I listerally can't get to it
+        string rawScript = Resources.Load<TextAsset>("VN_Files/scene" + sceneNumber).text;
+
+        // split it by newline delimeter because fuck it i guess why not ahaahaha
+        // THANK YOU TO THE KIND FOLKS WHO PROGRAMMED STRING ARRAY TO GIVE FUNCTONALITY TO CONVERT TO LISTS
+        VNScript = rawScript.Split("\n").ToList();
     }
 
     // Update is called once per frame
@@ -107,11 +111,11 @@ public class VN_Control : MonoBehaviour
             {
                 string toToggle = VNScript[index].Substring(9);
 
-                if (toToggle == "npc")
+                if (toToggle.Contains("npc"))
                 {
                     cManager.FadeCharacterInOut(false);
                 }
-                else if (toToggle == "Aria")
+                else if (toToggle.Contains("Aria"))
                 {
                     cManager.FadeCharacterInOut(true);
                 }
@@ -162,13 +166,11 @@ public class VN_Control : MonoBehaviour
             rhythmComponent = Instantiate(gamePrefab);
             
             // feed it the song it needs
-            switch (song)
-            {
-                default:
-                case "tutorial":
-                    rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
-                    break;
-            }
+            if (song.Contains("tutorial"))
+                rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
+            // placeholder for now
+            else
+                rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
 
             // disable VN interactability
             txt.gameObject.GetComponentInParent<Image>().gameObject.SetActive(false);
@@ -234,25 +236,18 @@ public class VN_Control : MonoBehaviour
         if (fade)
             length = 0.5f;
 
-        switch(bg)
-        {
-            case "Apartment":
-                StartCoroutine(ChangeBG(backgrounds[0], length));
-                break;
-            case "Subway":
-                StartCoroutine(ChangeBG(backgrounds[1], length));
-                break;
-            case "Office":
-                StartCoroutine(ChangeBG(backgrounds[2], length));
-                break;
-            default:
-            case "Black":
-                StartCoroutine(ChangeBG(backgrounds[3], length));
-                break;
-            case "White":
-                StartCoroutine(ChangeBG(backgrounds[4], length));
-                break;
-        }
+        if (bg.Contains("Apartment"))
+            StartCoroutine(ChangeBG(backgrounds[0], length));
+        else if (bg.Contains("Subway"))
+            StartCoroutine(ChangeBG(backgrounds[1], length));
+        else if (bg.Contains("Office"))
+            StartCoroutine(ChangeBG(backgrounds[2], length));
+        else if (bg.Contains("Black"))
+            StartCoroutine(ChangeBG(backgrounds[3], length));
+        else if (bg.Contains("White"))
+            StartCoroutine(ChangeBG(backgrounds[4], length));
+        else
+            StartCoroutine(ChangeBG(backgrounds[3], length));
     }
     IEnumerator ChangeBG(Texture bgChange, float duration)
     {
