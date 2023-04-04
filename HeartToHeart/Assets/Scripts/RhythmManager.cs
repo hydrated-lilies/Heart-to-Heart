@@ -62,8 +62,8 @@ public class RhythmManager : MonoBehaviour
         GameObject.Find("GameScreenCanvas").GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
         // note lists
-        holdNotes = noteGen.getHoldNotes("Assets/Map/tutorial/holdMap.txt");
-        notes = noteGen.getNotes("Assets/Map/tutorial/map.txt");
+        holdNotes = noteGen.getHoldNotes("Map/tutorial/holdMap");
+        notes = noteGen.getNotes("Map/tutorial/map");
 
         // timing loading
         gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
