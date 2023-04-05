@@ -222,6 +222,9 @@ public class HoldNote : MonoBehaviour
         firstNote = newNote1.GetComponent<Note>();
         secondNote = newNote2.GetComponent<Note>();
         created = true;
+
+        // draw note for initial position
+        drawNote();
     }
 
     public void drawNote()

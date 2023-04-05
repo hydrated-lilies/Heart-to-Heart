@@ -13,6 +13,7 @@ public class NoteGen : MonoBehaviour
     public GameObject prefab;
     public GameObject prefab2;
     Vector3 scaleChange;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -163,7 +164,10 @@ public class NoteGen : MonoBehaviour
     public List<Note> getNotes(string path)
     {
         List<Note> noteList = new List<Note>();
-        List<string> fileLines = File.ReadAllLines(path).ToList();
+        string rawNoteList = Resources.Load<TextAsset>(path).text;
+
+        List<string> fileLines = rawNoteList.Split("\n").ToList();
+
         for (int i = 0; i < fileLines.Count; i++)
         {
             string[] data = fileLines[i].Split(" ");
@@ -174,9 +178,8 @@ public class NoteGen : MonoBehaviour
             }
             GameObject newNote = Instantiate(prefab);
 
-            if (nextData!=null && float.Parse(nextData[1]) - float.Parse(data[1]) < 0.05)
+            if (nextData!=null && float.Parse(nextData[1]) - float.Parse(data[1]) < 0.05 && checkOpp(data[0], nextData[0]))
             {
-                if (checkOpp(data[0], nextData[0])) {
                     GameObject newNote2 = Instantiate(prefab);
                     switch (data[0])
                 {
@@ -200,7 +203,7 @@ public class NoteGen : MonoBehaviour
                     i++;
                     noteList.Add(newNote.GetComponent<Note>());
                     noteList.Add(newNote2.GetComponent<Note>());
-                }
+                
                 nextData = null;
             }
             else
@@ -243,10 +246,14 @@ public class NoteGen : MonoBehaviour
     public List<HoldNote> getHoldNotes(string path)
     {
         List<HoldNote> holdNoteList = new List<HoldNote>();
-        List<string> fileLines = File.ReadAllLines(path).ToList();
+        string rawHoldNoteList = Resources.Load<TextAsset>(path).text;
+
+        List<string> fileLines = rawHoldNoteList.Split("\n").ToList();
+
         foreach (string line in fileLines)
         {
             string[] data = line.Split(" ");
+
             GameObject newNote = Instantiate(prefab2);
             GameObject newNote2 = Instantiate(prefab);
             GameObject newNote3 = Instantiate(prefab);

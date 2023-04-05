@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
+
 public class RhythmManager : MonoBehaviour
 {
+    // reference to visual novel control scene
+    public VN_Control parent = null;
+
     // values to track health, score, and combo
     public int health;     // VARIABLE
     public int combo;
-    int score;
     public GameObject gradePrefab;
     public GameObject gradeLocationRight, gradeLocationLeft, gradeLocationUp, gradeLocationDown;
     public Sprite perfect, good, bad;
@@ -22,16 +24,15 @@ public class RhythmManager : MonoBehaviour
     public bool inv; // true if invincible. We can have this on true for the tutorial stage!
     public Text comboText;
 
-
     // invincibility frames
     static float invTime = 2.0f;
-    float curInv; // don't think I'll use this
 
     // bool for advancing notes
     bool notePause = false;
-    bool held = false;
-    // song to play
+
+    // song source + songs
     public AudioSource audSource;
+    public List<AudioClip> musicTracks;
 
     // track for notes
     List<Note> notes;
@@ -55,27 +56,71 @@ public class RhythmManager : MonoBehaviour
         // init ints
         health = 4; // change this based on difficulty
         combo = 0;
-        score = 0;
         inv = false;
 
-        heart = GameObject.Find("Heart").GetComponent<HeartControl>();
+        // get camera for canvas
+        GameObject.Find("GameScreenCanvas").GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-        print("generating notes...");
-        holdNotes = noteGen.getHoldNotes("Assets/Map/TestHoldMap.txt");
+        // note lists
+        holdNotes = noteGen.getHoldNotes("Map/tutorial/holdMap");
+        notes = noteGen.getNotes("Map/tutorial/map");
 
-        notes = noteGen.getNotes("Assets/Map/TestMap.txt");
+        // timing loading
+        gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
+        perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
+        gradePrefab.GetComponent<SpriteRenderer>().sprite = good;
+        goodObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
+        gradePrefab.GetComponent<SpriteRenderer>().sprite = bad;
+        badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
+        setZero();
+
+        // set song
+        notePause = true;
+        audSource.clip = musicTracks[0];
+
+        Invoke("startSong", 2f);
+    }
+
+    public void setMusicTrack(int track, GameObject vnReference)
+    {
+        parent = vnReference.GetComponent<VN_Control>();
+        audSource.clip = musicTracks[track];
+    }
+
+    public void startSong()
+    {
+        audSource.Play();
+        notePause = false;
     }
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+        // if the song is over, tell someone
+        if (!(audSource.isPlaying || notePause))
+        {
+            print("song over!");
+
+            // if not null tell the vn to delete this prefab and continue the VN
+            if (parent != null)
+                parent.CompleteSong();
+        }
+
         if (!notePause)
             advanceNotes();
 
         tapTracking();
 
         if (Input.GetKeyDown("p") || Input.GetKeyDown(KeyCode.Escape))
+        {
             notePause = !notePause;
+            if (audSource.isPlaying)
+                audSource.Pause();
+            else
+                audSource.Play();
+        }
+        else if (Input.GetKeyDown("h"))
+            SceneManager.LoadScene(0);
     }
 
     void advanceNotes()
@@ -389,153 +434,63 @@ public class RhythmManager : MonoBehaviour
 
         // end previous coroutine
         // call coroutine
-
+        StopCoroutine("printGrade");
         StartCoroutine(printGrade(duration, grade, type));
     }
     IEnumerator printGrade(float duration, int grade, NOTE_TYPE type)
     {
-        Destroy(badObject);
-        Destroy(goodObject);
-        Destroy(perfectObject);
+        // Destroy(badObject);
+        // Destroy(goodObject);
+        // Destroy(perfectObject);
         switch (grade)
         {
             case 1:
                 // perfect
-                gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
-                switch (type)
-                {
-                    case NOTE_TYPE.HL:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.HR:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                    case NOTE_TYPE.HU:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.HD:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-                    case NOTE_TYPE.L:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.R:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                    case NOTE_TYPE.U:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.D:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-
-                    case NOTE_TYPE.UR:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.UL:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.DL:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-                    case NOTE_TYPE.DR:
-                        perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                }
-                    break;
+                // gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
+                // perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
+                break;
             case 2:
                 // good
-                gradePrefab.GetComponent<SpriteRenderer>().sprite = good;
-                switch (type)
-                {
-                    case NOTE_TYPE.HL:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.HR:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                    case NOTE_TYPE.HU:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.HD:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-                    case NOTE_TYPE.L:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.R:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                    case NOTE_TYPE.U:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.D:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-
-                    case NOTE_TYPE.UR:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.UL:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.DL:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-                    case NOTE_TYPE.DR:
-                        goodObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                }
+                // gradePrefab.GetComponent<SpriteRenderer>().sprite = good;
+                // goodObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
                 break;
             case 3:
                 // bad
-                gradePrefab.GetComponent<SpriteRenderer>().sprite = bad;
-                switch (type)
-                {
-                    case NOTE_TYPE.HL:
-                        badObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.HR:
-                        badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                    case NOTE_TYPE.HU:
-                        badObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.HD:
-                        badObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-                    case NOTE_TYPE.L:
-                        badObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.R:
-                        badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                    case NOTE_TYPE.U:
-                        badObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.D:
-                        badObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-
-                    case NOTE_TYPE.UR:
-                        badObject = Instantiate(gradePrefab, (gradeLocationUp.transform));
-                        break;
-                    case NOTE_TYPE.UL:
-                        badObject = Instantiate(gradePrefab, (gradeLocationLeft.transform));
-                        break;
-                    case NOTE_TYPE.DL:
-                        badObject = Instantiate(gradePrefab, (gradeLocationDown.transform));
-                        break;
-                    case NOTE_TYPE.DR:
-                        badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                        break;
-                }
+                // gradePrefab.GetComponent<SpriteRenderer>().sprite = bad;
+                // badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
                 break;
         }
-        yield return new WaitForSeconds(duration);
-        StopCoroutine("printGrade");
-        Destroy(badObject);
-        Destroy(goodObject);
-        Destroy(perfectObject);
+        float elapsed = 0;
+
+        while (elapsed < duration)
+        {
+            // change alpha channel to decrease back to half opacity
+            float alpha = Mathf.Lerp(1f, 0.0f, elapsed / duration) + .2f;
+            switch(grade)
+            {
+                case 1:
+                    perfectObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
+                    break;
+                case 2:
+                    goodObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
+                    break;
+                case 3:
+                    badObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, alpha);
+                    break;
+            }
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+        setZero();
+        // Destroy(badObject);
+        // Destroy(goodObject);
+        // Destroy(perfectObject);
+    }
+    public void setZero()
+    {
+        perfectObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+        goodObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+        badObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
     }
 }
