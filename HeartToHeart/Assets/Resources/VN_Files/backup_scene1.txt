@@ -1,0 +1,510 @@
+[Volume] 0.1
+[Song] calm
+[Volume] 0.4 [F] 1
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] *yaaaaaaawn*
+[Character] Aria [EXPR] Excited [POSE] Down
+[Line] I haven't slept that well in ages!
+[Character] Aria [EXPR] Happy [POSE] Open
+[Line] I guess a change in scenery really DOES make a difference, huh?
+[Character] Aria [EXPR] Happy [POSE] Down
+[Character] [OFF]
+[Line] [The layout of this place isn't even remotely similar to the old place I used to live in]
+[Character] Aria [EXPR] Regret
+[Character] [OFF]
+[Line] [I almost walked right into a wall last night when looking for the bathroom]
+[Character] Aria [EXPR] Happy
+[Character] [OFF]
+[Line] [Force of habit I suppose!]
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] Jeeze, this place is such a mess...
+[Line] Did I always have this much stuff?
+[Line] I spent some time yesterday unpacking some of the bigger things...
+[Character] Aria [EXPR] Regret
+[Line] ... and yet it looks like I haven't even made a dent!
+[Character] Aria [EXPR] Confused
+[Volume] 0.1 [F] 0.5
+[Line] I guess it feels like more when it's all packed away in boxes.
+[Character] Aria [EXPR] Worried
+[Character] [OFF]
+[Volume] 0 [F] 0.2
+[Line] ...
+[Character] Aria [EXPR] Silly [POSE] Down
+[Volume] 0.4 [F] 2.5
+[Line] Ahaha! Oh well! It happens!
+[Character] Aria [EXPR] Happy
+[Line] Who says I have to unpack everthing in a single day, anyway? I have time!
+[Character] Aria [EXPR] Silly
+[Line] I'll do a bit more unpacking tonight after my first day back.
+[Character] [OFF]
+[Toggle] Aria
+[Volume] 0 [F] 0.5
+
+
+[Background] [F] Subway
+
+
+[Toggle] Aria
+[Song] upbeat
+[Volume] 0.4 [F] 0.5
+[Character] Aria [EXPR] Surprise
+[Character] [OFF]
+[Line] [Huh, not nearly as crowded as the line I used to take]
+[Character] Aria [EXPR] Excited
+[Character] [OFF]
+[Line] [What a win-win.]
+[Character] Aria [EXPR] Happy
+[Character] [OFF]
+[Line] [I'll just pop myself down over here then. This guy seems friendly!]
+[Character] Aria
+[Line] Do you mind if I sit next to you?
+[Toggle] npc
+[Character] Wesley [EXPR] Worried [POSE] Open
+[Line] ...!
+[Line] Oh, uhm. Sure, that's fine.
+[Character] Wesley [EXPR] Worried [POSE] Closed
+[Line] Sorry...
+[Character] Aria [EXPR] Silly
+[Line] No worries at all, you don't hafta apologize!
+[Character] Wesley
+[Line] Right, sorr- I mean.
+[Character] Wesley [EXPR] Frown [POSE] Hold
+[Line] Force of habit, haha.
+[Character] Aria [EXPR] Happy
+[Line] I get it! Habits are hard to break!
+[Character] Wesley
+[Line] For sure...
+[Character] Aria
+[Line] My name's Aria by the way! Nice to meet ya!
+[Line] I just moved to this side of the city.
+[Character] Wesley [EXPR] Smile [POSE] Open
+[Line] I'm Wesley... Nice to meet you too.
+[Line] Uhm, do you work around here?
+[Character] Aria [EXPR] Excited [POSE] Open
+[Line] Sure do! My commute used to be way longer.
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] Really looking forward to not having to wake up an hour earlier to be on time, haha.
+[Character] Aria [EXPR] Happy [POSE] Down
+[Character] Wesley
+[Line] That does sound a lot better.
+[Character] Wesley [EXPR] Worried
+[Line] I think I'd worry too much about getting to work on time if it was that far.
+[Character] Wesley [EXPR] Frown [POSE] Closed
+[Line] Well... more than I do already.
+[Character] Aria
+[Line] Hmm, that is true.
+[Character] Aria [EXPR] Surprise
+[Line] Is the place you work strict?
+[Character] Wesley
+[Line] Oh, no, not partiuclarly. The environment is pretty friendly.
+[Character] Wesley [EXPR] Smile [POSE] Open
+[Line] I-I've actually met a lot of nice people there...
+[Character] Aria [EXPR] Silly [POSE] Open
+[Line] That's great! Good coworkers always makes the ol' nine to five way more bearable!
+[Character] Aria [EXPR] Happy [Pose] Open
+[Line] And I wouldn't worry too hard then,
+[Line] It's good to be on time, but it seems like nobody would penalize you if you happened to be a bit late.
+[Character] Aria [EXPR] Silly [POSE] Point
+[Line] And maybe this is intuition, but you sound like a very hard-working and responsible person!
+[Character] Wesley
+[Line] You think so...?
+[Character] Aria [EXPR] Wink [POSE] Down
+[Line] Without a doubt! It's written all over your face.
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] And a little bit of lateness wouldn't change that.
+[Character] Wesley
+[Line] I see...
+[Line] Uhm, thanks Aria. That's nice of you.
+[Character] Aria [EXPR] Excited [POSE] Down
+[Line] Hehe, of course!
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] Just saying what I think is all.
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] Oh, shoot! That's my stop!
+[Character] Aria [EXPR] Excited [POSE] Open
+[Line] It was nice talking to you, Wes!
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] Wes? Can I call ya Wes?
+[Character] Wesley [EXPR] Worried [POSE] Hold
+[Line] O-Oh uhm, sure...
+[Character] Wesley [EXPR] Smile [POSE] Hold
+[Line] B-Bye Aria!
+[Toggle] npc
+[Toggle] Aria
+
+
+[Background] [F] Office
+
+
+[Toggle] Aria
+[Character] Aria
+[Toggle] Aria
+[Character] Aria [EXPR] Happy [POSE] Down
+[Character] [OFF]
+[Line] [Ah, back in the office. Feels like nothing's changed]
+[Character] Aria [EXPR] Regret [POSE] Closed
+[Line] [Well, obviously, it's only been a week or so, haha]
+[Toggle] npc
+[Character] Boss [EXPR] na [POSE] na
+[Line] Aria! Good to see you're back! We missed you around here!
+[Character] Aria [EXPR] Happy [POSE] Open
+[Line] Haha, glad to be back, chief!
+[Line] I'll be sure to continue working my hardest!
+[Character] Boss
+[Line] Hah! I know you will.
+[Line] You're an inspiration to us all!
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] Heheh, you're too kind~.
+[Character] Boss
+[Line] Nonsense! Whenever there's an issue, we can always count on you to fix it.
+[Line] Speaking of, let me introduce you to a new hire.
+[Line] She's been here for a few days now, but since you've been out, it's about time you got properly introduced.
+[Line] Carrie, this is Aria Heiki.
+[Character] Carrie [EXPR] Default [POSE] default
+[Line] Hello there, it's nice to meet you. I'm Carrie.
+[Character] Aria [EXPR] Surprise
+[Character] [OFF]
+[Line] [Oh wow, she's pretty]
+[Character] Aria [EXPR] Excited [POSE] Open
+[Line] Nice to meet you too! Welcome to the company.
+[Character] Boss [EXPR] na [POSE] na
+[Line] Carrie's in your department, so I'm asking you to keep an eye out for her to make sure she's adjusting okay.
+[Character] Aria [EXPR] Silly [POSE] Open
+[Line] Can do, boss!
+[Character] Aria [EXPR] Happy
+[Line] Feel free to come bother me if you need anything, 'kay Carrie?
+[Character] Carrie [EXPR] Nervous [POSE] default
+[Line] Sound's good. I can do that.
+[Character] Carrie [EXPR] Default [POSE] default
+[Line] Thank you.
+[Character] Aria [EXPR] Wink [POSE] Down
+[Line] Not a problem at all!
+[Character] Boss [EXPR] na [POSE] na
+[Line] Wonderful! I'll leave you all to it, then!
+[Toggle] npc
+[Character] Aria [EXPR] Happy
+[Line] Welp, no need in dilly dallying, then!
+[Line] Got plenty of work to catch up on from when I was gone.
+[Line] I bet some music'll help me get in the groove!
+[Toggle] Aria
+[Volume] 0 [F] 0.5
+
+
+[Load Game] tutorial
+
+
+[Song] calm
+[Volume] 0.4 [F] 3
+[Toggle] Aria
+[Character] Aria [EXPR] Surprise [POSE] Down
+[Line] Huh. Not nearly as bad as I was expecting.
+[Character] Aria [EXPR] Regret [POSE] Closed
+[Line] Though I'm still a bit behind....
+[Character] Aria [EXPR] Wink [POSE] Point
+[Line] Not bad for a first day back though!
+[Line] I'll be right on track in no time!
+[Character] Aria [EXPR] Surprise [POSE] Closed
+[Character] [OFF]
+[Line] [Hmm... it is getting decently late out.]
+[Character] Aria [EXPR] Happy [POSE] Down
+[Character] [OFF]
+[Line] [Carrie seems to be doing okay, though!]
+[Character] Aria [EXPR] Surprise [POSE] Down
+[Character] [OFF]
+[Line] [Well... as far as I can tell, anyway.]
+[Character] Aria [EXPR] Surprise [POSE] Down
+[Character] [OFF]
+[Line] [I haven't seen her around too much unless she's running an errand.]
+[Character] Aria [EXPR] Regret [POSE] Closed
+[Character] [OFF]
+[Line] [And she skittered right by before I could call out to her.]
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] Ah... I remember when I used to be like that
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] Might as well go check up on her to make sure all is well!
+[Toggle] Aria
+[Background] [F] Office
+[Toggle] Aria
+[Line] Heeeeeeeeey Carrie, how's it hangin'?
+[Character] Carrie [EXPR] Default [POSE] Down
+[Toggle] npc
+[Line] Ah, Ms. Heiki.
+[Character] Carrie [EXPR] Nervous [POSE] Down
+[Line] I think I'm doing okay.
+[Character] Carrie [EXPR] Sheepish [POSE] Down
+[Line] I'm still trying to get the hang of things around here.
+[Character] Aria [EXPR] Silly [POSE] Point
+[Line] That's totally fine! We can't expect you to figure everything out in only a week.
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] There's no rush, take your time
+[Character] Carrie
+[Character] Carrie [EXPR] Default [POSE] Down
+[Line] Thank you very much.
+[Line] I'll keep that in mind.
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] Not a problem at all!
+[Character] Aria [EXPR] Wink [POSE] Open
+[Line] Also, there's no need to be so formal.
+[Character] Aria [EXPR] Wink
+[Line] Aria is fine~, If not preferred!
+[Character] Carrie [EXPR] Blush [POSE] Down
+[Line] Hehehe, okay Ms. Aria.
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] That's... better!
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] We'll work on it, haha
+[Line] I should probaby head home before it gets toooo late though.
+[Line] Are you leaving soon too?
+[Character] Carrie [EXPR] Default [POSE] Down
+[Line] Mm. Once I finish this revision I'll be leaving, too.
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] Great! Don't push yourself too hard, ya hear, Care?
+[Line] Can I call ya Care?
+[Character] Carrie [EXPR] Blush [POSE] Down
+[Line] Ehehehe~. Sure, that's fine.
+[Character] Aria
+[Line] Great! Catch ya around, Care!
+[Toggle] Aria
+[Character] Carrie
+[Line] See you tomorrow!
+[Toggle] npc
+[Toggle] Aria
+[Volume] 0 [F] 0.5
+
+
+[Background] [F] Subway
+
+
+[Song] upbeat
+[Volume] 0.4 [F] 1
+[Toggle] Aria
+[Character] Aria [EXPR] Surprised [POSE] Closed
+[Character] [OFF]
+[Line] [Sure are a lot of people getting off the subway...]
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] Ack! Sorry, didn't mean to bump into you.
+[Toggle] npc
+[Character] Marlow [EXPR] Frown [POSE] Down
+[Character] [OFF]
+[Line] ...
+[Character] Aria [EXPR] Regret [POSE] Down
+[Line] ... ...
+[Character] Marlow
+[Line] It's fine.
+[Character] Aria
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] G-Good to hear!
+[Toggle] npc
+[Character] Aria
+[Character] [OFF]
+[Line] ...
+[Line] h-huh...
+[Character] Aria [EXPR] Happy [POSE] Closed
+[Line] Ah, looks like Wes also rides the subway back, too!
+[Character] Aria [EXPR] Silly [POSE] Point
+[Line] Heya, Wes! Fancy seeing you here!
+[Character] Aria [EXPR] Wink [POSE] Point
+[Line] Well, not actually since we seem to have the same commute, haha.
+[Volume] 0 [F] 0.5
+[Dim] 0.5 [F] 0.5
+[Toggle] npc
+[Character] Wesley [EXPR] Scared [POSE] Hold
+[Character] [OFF]
+[Line] ...
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] You okay, Wes?
+[Character] Wesley [EXPR] Scared [POSE] Hold
+[Auto]
+[Line] W-W-
+[Line] I uhm well It's I
+[Line] I, I, Uhm,
+[Line] S-S-So there's uh,
+[Line] And And And It's, It's u-uhm
+[Line] U-Uh, uhm, I... It's
+[Auto]
+[Character] Aria [EXPR] Worried [POSE] Closed
+[Line] Woah, woah hey, Wes.
+[Line] Can you hear me?
+[Character] Wesley [EXPR] Scared [Pose] Closed
+[Auto]
+[Line] A,, uh I-I...
+[Line] hhh... uhm
+[Line] I-I ca
+[Line] can't uhm, it's, it's
+[Line] A-And the, the,
+[Line] Th-
+[Line] ...
+[Line] ...
+[Line] ...
+[Line] ...
+[Line] ... ... ...
+[Auto]
+[Character] Aria [EXPR] Worried [Pose] Down
+[Line] Hey, breathe, okay?
+[Line] Try to focus on my voice, okay?
+[Toggle] npc
+[Toggle] Aria
+
+
+[Load Game] Wesley
+
+
+[Toggle] Aria
+[Toggle] npc
+[Character] Aria [EXPR] Worried [POSE] Down
+[Line] Feeling a little better, Wes?
+[Character] Wesley [EXPR] Nervous [POSE] Open
+[Line] U-Uhm...
+[Line] Yeah. 
+[Line] ...A little bit.
+[Character] Aria [EXPR] Happy [POSE] Point
+[Line] That's good! The worst of it is over.
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] You're safe! I promise.
+[Character] Wesley [EXPR] Frown [POSE] Open
+[Line] Yeah... for sure.
+[Character] Aria [EXPR] Confused
+[Line] Has there been somethin' on your mind?
+[Character] Aria [EXPR] Worried [POSE] Point
+[Line] If you want to talk about it, of course.
+[Character] Aria [EXPR] Confused [POSE] Down
+[Character] Wesley
+[Line] Well... it's uh.
+[Character] Wesley [EXPR] Smile [POSE] Hold
+[Character] Wesley [EXPR] Frown
+[Line] It's... pretty dumb, honestly.
+[Character] Aria [EXPR] Surprise [POSE] Point
+[Line] No such thing as a dumb thing to be worried about!
+[Character] Aria [EXPR] Happy [POSE] Open
+[Line] If something bothers you, then it just does!
+[Line] You can't fault yourself on that. That's just unfair to you.
+[Character] Wesley [EXPR] Frown
+[Line] I suppose that's true...
+[Line] It's... 
+[Character] Wesley [EXPR] Nervous
+[Line] I got invited out for drinks with a few coworkers tonight.
+[Character] Wesley [EXPR] Nervous [POSE] Closed
+[Line] A-And I'm happy about that! But I don't usually go out with new people. It makes me itchy and I never know what to say and I end up making a fool out of myself and-
+[Character] Wesley [EXPR] Frown
+[Line] S-Stuff like that, eheh. I'm just a bit... worried
+[Character] Aria [EXPR] Surprise [POSE] Closed
+[Line] Hmm, that's certainly an understandable thing to be nervous about.
+[Character] Aria [EXPR] Happy [POSE] Open
+[Line] But hey!! Sounds like your coworkers already enjoy your presence enough to invite you out!
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] I'd say you're already doing a wonderful job!
+[Character] Wesley [EXPR] Frown [POSE] Hold
+[Line] Maybe...
+[Character] Aria [EXPR] Surprise [POSE] Point
+[Line] Where are you getting drinks at?
+[Character] Wesley
+[Line] I believe it's on 4th and Madrigal Avenue?
+[Character] Aria [EXPR] Happy [POSE] Open
+[Line] Ah! I know that place!
+[Line] They have a few old arcade cabinets in there I love to play.
+[Character] Wesley [EXPR] Smile [POSE] Open
+[Line] Oh, really?
+[Line] I used to play a lot of Munch Man when I was younger
+[Character] Aria [EXPR] Silly [POSE] Point
+[Line] Me too! That's the cabinet they have as well!
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] Ahh... so nolstalgic
+[Character] Aria [EXPR] Wink [POSE] Down
+[Line] And my high score is in the hundreds
+[Character] Wesley [EXPR] Frown
+[Line] Just the thousands?
+[Character] Aria [EXPR] Confused [POSE] Closed
+[Line] Is that... not a lot?
+[Character] Wesley [EXPR] Smile
+[Line] I think I remember having something in the thousands
+[Character] Aria [EXPR] Suprise
+[Line] Seriously??
+[Character] Aria [EXPR] Regret [POSE] Down
+[Line] I see...
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] Didn't realize I was in the presence of a gaming legend!
+[Character] Wesley
+[Line] A-Ahaha, I'm not sure about that.
+[Character] Wesley [EXPR] Smile [POSE] Closed
+[Line] I do know a few good strategies, though.
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] I'll have to hear some of those, then sometime! Brush up my own skills
+[Character] Wesley [EXPR] Smile [POSE] Closed
+[Line] Sure thing.
+[Character] Aria [EXPR] Excited [POSE] Down
+[Line] ...
+[Character] Wesley [EXPR] Frown [POSE] Open
+[Line] W-What are you looking at?
+[Song] upbeat
+[Volume] 0.3 [F] 1
+[Character] Aria [EXPR] Wink [POSE] Down
+[Line] See! You're extremely personable!
+[Character] Aria [EXPR] Surprise [POSE] Point
+[Line] If you're able to talk to me,
+[Character] Aria [EXPR] Wink [POSE] Point
+[Line] Some random girl you met on the subway,
+[Character] Aria [EXPR] Silly [POSE] Open
+[Line] Then you're going to be awesome tonight.
+[Character] Aria [EXPR] Happy [POSE] Open
+[Line] Hands down! No contest!
+[Character] Wesley [EXPR] Frown [POSE] Hold
+[Line] ...
+[Character] Wesley [EXPR] Smile [POSE] Hold
+[Line] Y-You're right. It'll be fun.
+[Line] Yeah...
+[Line] I can do this.
+[Character] Aria [EXPR] Wink [POSE] Point
+[Line] That's the spirit!
+[Line] Fight on, Wes! I believe in you!
+[Character] Wesley [EXPR] Smile [POSE] Open
+[Line] Eheh... Thank you Aria, I feel way better...
+[Line] You've already helped me so much.
+[Line] And I barely met you this morning!
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] Of course! I'm happy I can provide a helping hand!
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] Glad to hear you're feeling better~.
+[Character] Wesley
+[Line] Mhm!
+[Character] Wesley [EXPR] Worried [POSE] Closed
+[Line] Ah! This is where I need to get off
+[Character] Wesley [EXPR] Smile [POSE] Open
+[Line] T-Thank you again, Aria!
+[Character] Aria [EXPR] Wink [POSE] Open
+[Line] Don't mention it!
+[Character] Aria [EXPR] Happy [POSE] Closed
+[Line] Have fun, Wes!
+[Toggle] npc
+[Wait] 2
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] ...
+[Character] Aria [EXPR] Silly [POSE] Down
+[Line] [Phew. Glad it all worked out]
+[Toggle] Aria
+[Volume] 0 [F] 0.5
+
+[Background] [F] Apartment
+
+
+[Song] calm
+[Volume] 0.3 [F] 1
+[Toggle] Aria
+[Character] Aria [EXPR] Happy [POSE] Down
+[Line] Home sweet home!
+[Line] Should probably unpack some of these boxes tonight while I've got the time.
+[Character] Aria [EXPR] Silly [POSE] Point
+[Line] And make some dinner, of course!
+[Character] Aria [EXPR] Worried [POSE] Down
+[Character] [OFF]
+[Line] ...
+[Wait] 2
+[Character] Aria [EXPR] Worried [POSE] Down
+[Character] [OFF]
+[Line] Hmm...
+[Character] Aria [EXPR] Happy [POSE] Closed
+[Line] Well, probably shouldn't stand around doin' nothing~.
+[Line] Let's get to work...
+[Toggle] Aria
+
+[Background] [F] Black
+[Wait] 5

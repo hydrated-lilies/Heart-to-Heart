@@ -284,6 +284,7 @@ MonoBehaviour:
   audSource: {fileID: 2965764534752657923}
   musicTracks:
   - {fileID: 8300000, guid: 793b772063b9a4940bb3098517c87a35, type: 3}
+  - {fileID: 8300000, guid: 520a7b0fa81e6ad4db291ec67a9e589a, type: 3}
   ringL: {fileID: 2965764535880155088}
   ringR: {fileID: 2965764535605162675}
   ringU: {fileID: 2965764536438927975}
@@ -302,7 +303,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 793b772063b9a4940bb3098517c87a35, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
