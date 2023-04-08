@@ -31,7 +31,8 @@ public class RhythmManager : MonoBehaviour
     bool notePause = false;
 
     // song source + songs
-    public AudioSource audSource;
+    public AudioSource audSource, sfxAudSource;
+    public AudioClip perfectSFX, goodSFX, badSFX;
     public List<AudioClip> musicTracks;
 
     // track for notes
@@ -427,6 +428,24 @@ public class RhythmManager : MonoBehaviour
         */
         comboText.text = "Combo: "+ combo;
     }
+    public void sfxGrade(int grade)
+    {
+        switch (grade)
+        {
+            case 1:
+                // perfect
+                sfxAudSource.PlayOneShot(perfectSFX,1f);
+                break;
+            case 2:
+                // good
+                sfxAudSource.PlayOneShot(goodSFX, 1f);
+                break;
+            case 3:
+                // bad
+                sfxAudSource.PlayOneShot(badSFX, 1f);
+                break;
+        }
+    }
     public void flashGrade(int grade, NOTE_TYPE type)
     {
 
@@ -434,6 +453,7 @@ public class RhythmManager : MonoBehaviour
 
         // end previous coroutine
         // call coroutine
+        sfxGrade(grade);
         StopCoroutine("printGrade");
         StartCoroutine(printGrade(duration, grade, type));
     }
