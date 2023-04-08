@@ -58,13 +58,10 @@ public class RhythmManager : MonoBehaviour
         health = 4; // change this based on difficulty
         combo = 0;
         inv = false;
+        sfxAudSource.volume = 0.5f;
 
         // get camera for canvas
         GameObject.Find("GameScreenCanvas").GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-
-        // note lists
-        holdNotes = noteGen.getHoldNotes("Map/tutorial/holdMap");
-        notes = noteGen.getNotes("Map/tutorial/map");
 
         // timing loading
         gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
@@ -77,15 +74,36 @@ public class RhythmManager : MonoBehaviour
 
         // set song
         notePause = true;
-        audSource.clip = musicTracks[0];
+    }
 
-        Invoke("startSong", 2f);
+    void loadMapNotes(string folder)
+    {
+        // note lists
+        holdNotes = noteGen.getHoldNotes(folder + "holdMap");
+        notes = noteGen.getNotes(folder + "map");
     }
 
     public void setMusicTrack(int track, GameObject vnReference)
     {
         parent = vnReference.GetComponent<VN_Control>();
         audSource.clip = musicTracks[track];
+
+        // load note maps depending on the game
+        string folder;
+        switch(track)
+        {
+            default:
+            case 0:
+                folder = "Map/tutorial/";
+                break;
+            case 1:
+                folder = "Map/wesley/";
+                break;
+        }
+
+        loadMapNotes(folder);
+
+        Invoke("startSong", 2f);
     }
 
     public void startSong()

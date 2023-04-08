@@ -210,7 +210,6 @@ public class VN_Control : MonoBehaviour
             // feed it the song it needs
             if (song.Contains("tutorial"))
                 rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
-            // placeholder for now
             else if (song.Contains("Wesley"))
                 rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(1, gameObject);
 
@@ -218,11 +217,9 @@ public class VN_Control : MonoBehaviour
             txt.gameObject.GetComponentInParent<Image>().gameObject.SetActive(false);
             interactable = false;
 
-            // dimbg, clear text
-            StartCoroutine(DimBG(0.35f, 1f));
             txt.text = "";
 
-            // start song (done automagically in rhythm manager
+            // start song (done automagically in rhythm manager)
         }
     }
     void parseTypedLine()

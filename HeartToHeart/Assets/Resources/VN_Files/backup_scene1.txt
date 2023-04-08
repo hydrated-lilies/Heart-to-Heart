@@ -188,11 +188,13 @@
 [Line] I bet some music'll help me get in the groove!
 [Toggle] Aria
 [Volume] 0 [F] 0.5
+[Dim] 0.35 [F] 1
 
 
 [Load Game] tutorial
 
 
+[Dim] 0.85 [F] 1
 [Song] calm
 [Volume] 0.4 [F] 3
 [Toggle] Aria
