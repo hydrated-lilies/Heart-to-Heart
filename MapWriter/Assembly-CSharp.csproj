@@ -62,8 +62,15 @@
     <Compile Include="Assets\Scripts\Note.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\map.txt" />
+    <None Include="Assets\map_pt2.txt" />
+    <None Include="Assets\holdMap_pt1.txt" />
+    <None Include="Assets\holdMap_pt2.txt" />
+    <None Include="Assets\map_pt1.txt" />
+    <None Include="Assets\holdMap_pt3.txt" />
     <None Include="Assets\holdMap.txt" />
+    <None Include="Assets\map.txt" />
+    <None Include="Assets\map_pt3.txt" />
+    <None Include="Assets\map_pt4.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

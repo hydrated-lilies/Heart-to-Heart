@@ -70,6 +70,8 @@ public class CharacterManager : MonoBehaviour
     public List<Texture> wPose;
     public List<Texture> cExpr;
     public List<Texture> cPose;
+    public List<Texture> mPose;
+    public List<Texture> mExpr;
 
     // misc sprites for minor characters and events
     public List<Texture> misc;
@@ -84,7 +86,7 @@ public class CharacterManager : MonoBehaviour
     public RawImage npc_expr;
 
     // list of character objects
-    List<Character> characters;
+    List<Character> characters = null;
 
     // nametag object
     public RawImage nametag;
@@ -92,12 +94,18 @@ public class CharacterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitCharacters();
+    }
+
+    void InitCharacters()
+    {
         characters = new List<Character>();
 
         // define characters, type speed, and color type
         characters.Add(new("Aria", 0.1f, new Color(0.264f, 0.078f, 0.078f, 1)));
         characters.Add(new("Wesley", 0.08f, new Color(0.176f, 0.095f, 0.302f, 1)));
         characters.Add(new("Carrie", 0.12f, new Color(0.179f, 0.253f, 0.255f, 1)));
+        characters.Add(new("Marlow", 0.11f, new Color(0.632f, 0.389f, 0.057f, 1)));
         characters.Add(new("Boss", 0.1f, Color.grey)); // (because it's a little silhouetto of a man)
 
         // add nametag indices, too
@@ -105,12 +113,14 @@ public class CharacterManager : MonoBehaviour
         characters[1].setNametageInd(1);
         characters[2].setNametageInd(2);
         characters[3].setNametageInd(3);
+        characters[4].setNametageInd(4);
 
         // and text pitch
         characters[0].setTxtPitch(0.9f);
         characters[1].setTxtPitch(0.8f);
         characters[2].setTxtPitch(0.95f);
-        characters[3].setTxtPitch(0.75f);
+        characters[3].setTxtPitch(0.65f);
+        characters[4].setTxtPitch(0.75f);
 
         // set default character to aria
         activeCharacter = characters[0];
@@ -140,6 +150,9 @@ public class CharacterManager : MonoBehaviour
                     break;
                 case "Carrie":
                     npc_expr.texture = cExpr[newExp];
+                    break;
+                case "Marlow":
+                    npc_expr.texture = mExpr[newExp];
                     break;
                 case "Boss":
                     // doesn't need anything since there's no difference
@@ -182,6 +195,9 @@ public class CharacterManager : MonoBehaviour
                 case "Carrie":
                     npc_expr.texture = cExpr[newExp];
                     break;
+                case "Marlow":
+                    npc_expr.texture = mExpr[newExp];
+                    break;
                 case "Boss":
                     // doesn't need anything since there's no difference
                     break;
@@ -192,8 +208,20 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    public void SetNameTag(bool on)
+    {
+        if (on)
+            nametag.color = new Color(1, 1, 1, 1);
+        else
+            nametag.color = new Color(1, 1, 1, 0);
+    }
+
     public void ParseCharacter (string cmd)
     {
+        // check to see if the character list is loaded. If not, do that.
+        if (characters == null)
+            InitCharacters();
+
         // FIRST check to see if a character is just needing to have their mouth closed
         if (cmd.Contains("[OFF]"))
         {
@@ -212,8 +240,6 @@ public class CharacterManager : MonoBehaviour
         foreach (Character letter in characters)
             if (letter.getName().Contains(input) || input.Contains(letter.getName()))
             {
-                print("set active");
-
                 SetActive(letter);
                 ChangeNPC(letter.getName());
                 break;
@@ -262,6 +288,10 @@ public class CharacterManager : MonoBehaviour
             case "Carrie":
                 npc_expr.texture = cExpr[newExp];
                 characters[2].setExpIndex(newExp);
+                break;
+            case "Marlow":
+                npc_expr.texture = mExpr[newExp];
+                characters[3].setExpIndex(newExp);
                 break;
             case "Boss":
                 // doesn't need anything since there's no difference
@@ -363,6 +393,9 @@ public class CharacterManager : MonoBehaviour
             case "Carrie":
                 SetExpressionCarrie(expr);
                 break;
+            case "Marlow":
+                SetExpressionMarlow(expr);
+                break;
             default:
                 SetExpressionMisc(expr);
                 break;
@@ -409,23 +442,41 @@ public class CharacterManager : MonoBehaviour
         else if (expr.Contains("Worried"))
             newIndex = 6;
         else
-            print("error, no expression found");
+            print("error, no expression found for: " + expr);
 
         characters[1].setExpIndex(newIndex);
         npc_expr.texture = wExpr[newIndex];
     }
     void SetExpressionCarrie(string expr)
     {
-        // carrie only has one expression
+        int newIndex = 0;
+
         if (expr.Contains("Neutral"))
+            newIndex = 0;
+        else if (expr.Contains("Nervous"))
+            newIndex = 2;
+        else if (expr.Contains("Sheepish"))
+            newIndex = 4;
+        else if (expr.Contains("Blush"))
+            newIndex = 6;
+        else
+            print("somehow managed to mistype carrie's default pos");
+
+        characters[2].setExpIndex(newIndex);
+        npc_expr.texture = cExpr[newIndex];
+    }
+    void SetExpressionMarlow(string expr)
+    {
+        // carrie only has one expression
+        if (expr.Contains("Frown"))
         {
-            npc_expr.texture = cExpr[0];
+            npc_expr.texture = mExpr[0];
             characters[2].setExpIndex(0);
         }
         else
         {
-            print("somehow managed to mistype carrie's default pos");
-            npc_expr.texture = cExpr[0];
+            print("somehow managed to mistype marlow's default expr");
+            npc_expr.texture = mExpr[0];
             characters[2].setExpIndex(0);
         }
     }
@@ -448,6 +499,9 @@ public class CharacterManager : MonoBehaviour
                 break;
             case "Carrie":
                 SetPoseCarrie(pose);
+                break;
+            case "Marlow":
+                SetPoseMarlow(pose);
                 break;
             default:
                 SetPoseMic(pose);
@@ -501,6 +555,21 @@ public class CharacterManager : MonoBehaviour
             characters[2].setPoseIndex(0);
 
             print("mistyped carrie's only pose: " + pose);
+        }
+    }
+    void SetPoseMarlow(string pose)
+    {
+        if (pose.Contains("Cross"))
+        {
+            npc_body.texture = mPose[0];
+            characters[2].setPoseIndex(0);
+        }
+        else
+        {
+            npc_body.texture = mPose[0];
+            characters[2].setPoseIndex(0);
+
+            print("mistyped marlow's only pose: " + pose);
         }
     }
     void SetPoseMic(string pose)
