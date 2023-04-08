@@ -8,6 +8,8 @@ public class quickplay_control : MonoBehaviour
     public GameObject gamePrefab;
     GameObject rhythmComponent;
 
+    public int testSong;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,7 @@ public class quickplay_control : MonoBehaviour
         rhythmComponent = Instantiate(gamePrefab);
 
         // feed it the song it needs
-        rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
+        rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(testSong, gameObject);
 
         // start song (done automagically in rhythm manager)
     }

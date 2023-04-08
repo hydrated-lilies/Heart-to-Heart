@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\CharacterManager.cs" />
     <Compile Include="Assets\Scripts\titleMove.cs" />
     <Compile Include="Assets\Scripts\AnimationControl.cs" />
+    <Compile Include="Assets\quickplay_control.cs" />
     <Compile Include="Assets\Scripts\titleEvents.cs" />
     <Compile Include="Assets\Scripts\NoteGen.cs" />
     <Compile Include="Assets\Scripts\VN_Control.cs" />
@@ -70,7 +71,6 @@
     <Compile Include="Assets\Scripts\HeartControl.cs" />
     <Compile Include="Assets\Scripts\highlighTrack.cs" />
     <Compile Include="Assets\Scripts\Note.cs" />
-    <Compile Include="Assets\quickplay_control.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

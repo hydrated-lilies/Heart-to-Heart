@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamePrefab: {fileID: 2965764535953154856, guid: 78b4470c0efc88448ba2d59fac719c5c, type: 3}
+  testSong: 1
 --- !u!4 &199263380
 Transform:
   m_ObjectHideFlags: 0

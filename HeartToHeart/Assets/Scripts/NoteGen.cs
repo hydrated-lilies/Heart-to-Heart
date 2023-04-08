@@ -172,6 +172,7 @@ public class NoteGen : MonoBehaviour
         {
             string[] data = fileLines[i].Split(" ");
             string[] nextData=null;
+
             if (i!= fileLines.Count-1)
             {
                 nextData = fileLines[i+1].Split(" ");
@@ -253,6 +254,8 @@ public class NoteGen : MonoBehaviour
         foreach (string line in fileLines)
         {
             string[] data = line.Split(" ");
+            if (data.Length < 3)
+                break;
 
             GameObject newNote = Instantiate(prefab2);
             GameObject newNote2 = Instantiate(prefab);
