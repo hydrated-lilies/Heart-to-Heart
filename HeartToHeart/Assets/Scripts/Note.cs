@@ -13,6 +13,9 @@ public class Note : MonoBehaviour
     float mult = Mathf.Sin(Mathf.PI / 4.0f);
     public float trackSpeed = 3.0f;
 
+    static float offset = 0.768f;
+    static float diagOffset = 0.581f;
+
     public RhythmManager parent;
 
     // Start is called before the first frame update
@@ -60,41 +63,41 @@ public class Note : MonoBehaviour
         switch (type)
         {
             case NOTE_TYPE.HL:
-                transform.position = new Vector3(-(0.716f + (time * trackSpeed)), 0, 0);
+                transform.position = new Vector3(-(offset + (time * trackSpeed)), 0, 0);
                 break;
             case NOTE_TYPE.HR:
-                transform.position = new Vector3(0.716f + (time * trackSpeed), 0, 0);
+                transform.position = new Vector3(offset + (time * trackSpeed), 0, 0);
                 break;
             case NOTE_TYPE.HU:
-                transform.position = new Vector3(0, 0.716f + (time * trackSpeed), 0);
+                transform.position = new Vector3(0, offset + (time * trackSpeed), 0);
                 break;
             case NOTE_TYPE.HD:
-                transform.position = new Vector3(0, -(0.716f + (time * trackSpeed)), 0);
+                transform.position = new Vector3(0, -(offset + (time * trackSpeed)), 0);
                 break;
             case NOTE_TYPE.L:
-                transform.position = new Vector3(-(0.716f + (time * trackSpeed)), 0, 0);
+                transform.position = new Vector3(-(offset + (time * trackSpeed)), 0, 0);
                 break;
             case NOTE_TYPE.R:
-                transform.position = new Vector3(0.716f + (time * trackSpeed), 0, 0);
+                transform.position = new Vector3(offset + (time * trackSpeed), 0, 0);
                 break;
             case NOTE_TYPE.U:
-                transform.position = new Vector3(0, 0.716f + (time * trackSpeed), 0);
+                transform.position = new Vector3(0, offset + (time * trackSpeed), 0);
                 break;
             case NOTE_TYPE.D:
-                transform.position = new Vector3(0, -(0.716f + (time * trackSpeed)), 0);
+                transform.position = new Vector3(0, -(offset + (time * trackSpeed)), 0);
                 break;
 
             case NOTE_TYPE.UR:
-                transform.position = new Vector3(0.545f + (time * trackSpeed * mult), 0.545f + (time * trackSpeed * mult), 0);
+                transform.position = new Vector3(diagOffset + (time * trackSpeed * mult), diagOffset + (time * trackSpeed * mult), 0);
                 break;
             case NOTE_TYPE.UL:
-                transform.position = new Vector3(-(0.545f + (time * trackSpeed * mult)), 0.545f + (time * trackSpeed * mult), 0);
+                transform.position = new Vector3(-(diagOffset + (time * trackSpeed * mult)), diagOffset + (time * trackSpeed * mult), 0);
                 break;
             case NOTE_TYPE.DL:
-                transform.position = new Vector3(-(0.545f + (time * trackSpeed * mult)), -(0.545f + (time * trackSpeed * mult)), 0);
+                transform.position = new Vector3(-(diagOffset + (time * trackSpeed * mult)), -(diagOffset + (time * trackSpeed * mult)), 0);
                 break;
             case NOTE_TYPE.DR:
-                transform.position = new Vector3(0.545f + (time * trackSpeed * mult), -(0.545f + (time * trackSpeed * mult)), 0);
+                transform.position = new Vector3(diagOffset + (time * trackSpeed * mult), -(diagOffset + (time * trackSpeed * mult)), 0);
                 break;
         }
     }

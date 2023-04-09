@@ -8,7 +8,6 @@ public class WriteMap : MonoBehaviour
 {
     public float timeOffset;
     public enum NOTE_TYPE { U, D, L, R, UL, UR, DL, DR };
-    float time = 0;
 
     // play the song
     public AudioSource source;
@@ -52,7 +51,6 @@ public class WriteMap : MonoBehaviour
         if (source == null || (!source.isPlaying))
             return;
 
-        time += Time.deltaTime;
         tapTracking();
     }
 
@@ -70,7 +68,6 @@ public class WriteMap : MonoBehaviour
         
         else if (Input.GetKeyUp("w"))
         {
-           
             heldTime = Time.time - heldTime;
             float temp = Time.time - heldTime;
             WriteToHoldFile("HU " + temp + " " + heldTime);
@@ -101,7 +98,6 @@ public class WriteMap : MonoBehaviour
             if (heldTime2 < maxHeldTime)
             {
                 RemoveLastHoldLine();
-
             }
             else
             {
