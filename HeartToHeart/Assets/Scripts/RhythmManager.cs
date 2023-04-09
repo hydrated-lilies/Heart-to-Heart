@@ -28,7 +28,7 @@ public class RhythmManager : MonoBehaviour
     static float invTime = 2.0f;
 
     // bool for advancing notes
-    bool notePause = false;
+    bool notePause = true;
 
     // song source + songs
     public AudioSource audSource, sfxAudSource;
@@ -199,6 +199,8 @@ public class RhythmManager : MonoBehaviour
         }
         if (Input.GetKeyDown("d"))
         {
+            print(Time.time - 2f);
+
             ringR.flashRing();
             if (!checkHoldNoteTap(NOTE_TYPE.HR))
             {

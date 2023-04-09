@@ -22,6 +22,8 @@ public class HoldNote : MonoBehaviour
     public int index = -1;
     public bool toBeDeleted = false;
 
+    static float noteOffset = 0.768f;
+
     public float trackSpeed;
 
     public RhythmManager parent;
@@ -82,7 +84,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A) && firstNote.type == NOTE_TYPE.HL)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
             else if (Input.GetKeyUp(KeyCode.A) && firstNote.type == NOTE_TYPE.HL)
@@ -95,7 +97,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.D) && firstNote.type == NOTE_TYPE.HR)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
             else if (Input.GetKeyUp(KeyCode.D) && firstNote.type == NOTE_TYPE.HR)
@@ -108,7 +110,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.W) && firstNote.type == NOTE_TYPE.HU)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
             else if (Input.GetKeyUp(KeyCode.W) && firstNote.type == NOTE_TYPE.HU)
@@ -121,7 +123,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.S) && firstNote.type == NOTE_TYPE.HD)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
 
@@ -233,29 +235,29 @@ public class HoldNote : MonoBehaviour
         {
             case HOLD_NOTE_TYPE.HL:
                 // transform.position = new Vector3(-(0.716f + (time * trackSpeed)), 0, 0);
-                firstNote.transform.position = new Vector3(-(0.716f + (firstNoteTime * trackSpeed)), 0, 0);
-                secondNote.transform.position = new Vector3(-(0.716f + (secondNoteTime * trackSpeed)), 0, 0);
+                firstNote.transform.position = new Vector3(-(noteOffset + (firstNoteTime * trackSpeed)), 0, 0);
+                secondNote.transform.position = new Vector3(-(noteOffset + (secondNoteTime * trackSpeed)), 0, 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
             case HOLD_NOTE_TYPE.HR:
                 // transform.position = new Vector3(0.716f + (time * trackSpeed), 0, 0);
-                firstNote.transform.position = new Vector3(0.716f + (firstNoteTime * trackSpeed), 0, 0);
-                secondNote.transform.position = new Vector3(0.716f + (secondNoteTime * trackSpeed), 0, 0);
+                firstNote.transform.position = new Vector3(noteOffset + (firstNoteTime * trackSpeed), 0, 0);
+                secondNote.transform.position = new Vector3(noteOffset + (secondNoteTime * trackSpeed), 0, 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
             case HOLD_NOTE_TYPE.HU:
                 // transform.position = new Vector3(0, 0.716f + (time * trackSpeed), 0);
-                firstNote.transform.position = new Vector3(0, 0.716f + (firstNoteTime * trackSpeed), 0);
-                secondNote.transform.position = new Vector3(0, 0.716f + (secondNoteTime * trackSpeed), 0);
+                firstNote.transform.position = new Vector3(0, noteOffset + (firstNoteTime * trackSpeed), 0);
+                secondNote.transform.position = new Vector3(0, noteOffset + (secondNoteTime * trackSpeed), 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
             case HOLD_NOTE_TYPE.HD:
                 // transform.position = new Vector3(0, -(0.716f + (time * trackSpeed)), 0);
-                firstNote.transform.position = new Vector3(0, -(0.716f + (firstNoteTime * trackSpeed)), 0);
-                secondNote.transform.position = new Vector3(0, -(0.716f + (secondNoteTime * trackSpeed)), 0);
+                firstNote.transform.position = new Vector3(0, -(noteOffset + (firstNoteTime * trackSpeed)), 0);
+                secondNote.transform.position = new Vector3(0, -(noteOffset + (secondNoteTime * trackSpeed)), 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
