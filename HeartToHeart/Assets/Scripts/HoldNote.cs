@@ -11,16 +11,16 @@ public class HoldNote : MonoBehaviour
     public float secondNoteTime;
     public float firstNoteTime;
     public HOLD_NOTE_TYPE type;
-    float size;
     public Note firstNote;
     public Note secondNote;
     GameObject newNote1;
     GameObject newNote2;
-    float offset;
     public bool held = false;
     bool created = false;
     public int index = -1;
     public bool toBeDeleted = false;
+    float offset;
+    static float noteOffset = 0.768f;
 
     public float trackSpeed;
 
@@ -29,9 +29,6 @@ public class HoldNote : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // assign time (currently set to def value)
-        // time = 2.0f;
-
         // get reference to RhythmManager
         parent = GameObject.Find("Field").GetComponent<RhythmManager>();
     }
@@ -82,7 +79,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A) && firstNote.type == NOTE_TYPE.HL)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
             else if (Input.GetKeyUp(KeyCode.A) && firstNote.type == NOTE_TYPE.HL)
@@ -95,7 +92,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.D) && firstNote.type == NOTE_TYPE.HR)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
             else if (Input.GetKeyUp(KeyCode.D) && firstNote.type == NOTE_TYPE.HR)
@@ -108,7 +105,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.W) && firstNote.type == NOTE_TYPE.HU)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
             else if (Input.GetKeyUp(KeyCode.W) && firstNote.type == NOTE_TYPE.HU)
@@ -121,7 +118,7 @@ public class HoldNote : MonoBehaviour
 
             if (Input.GetKey(KeyCode.S) && firstNote.type == NOTE_TYPE.HD)
             {
-                firstNoteTime = 0.02225f;
+                firstNoteTime = 0;
                 checkTime();
             }
 
@@ -232,60 +229,31 @@ public class HoldNote : MonoBehaviour
         switch (type)
         {
             case HOLD_NOTE_TYPE.HL:
-                // transform.position = new Vector3(-(0.716f + (time * trackSpeed)), 0, 0);
-                firstNote.transform.position = new Vector3(-(0.716f + (firstNoteTime * trackSpeed)), 0, 0);
-                secondNote.transform.position = new Vector3(-(0.716f + (secondNoteTime * trackSpeed)), 0, 0);
+                firstNote.transform.position = new Vector3(-(noteOffset + (firstNoteTime * trackSpeed)), 0, 0);
+                secondNote.transform.position = new Vector3(-(noteOffset + (secondNoteTime * trackSpeed)), 0, 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
             case HOLD_NOTE_TYPE.HR:
-                // transform.position = new Vector3(0.716f + (time * trackSpeed), 0, 0);
-                firstNote.transform.position = new Vector3(0.716f + (firstNoteTime * trackSpeed), 0, 0);
-                secondNote.transform.position = new Vector3(0.716f + (secondNoteTime * trackSpeed), 0, 0);
+                firstNote.transform.position = new Vector3(noteOffset + (firstNoteTime * trackSpeed), 0, 0);
+                secondNote.transform.position = new Vector3(noteOffset + (secondNoteTime * trackSpeed), 0, 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
             case HOLD_NOTE_TYPE.HU:
-                // transform.position = new Vector3(0, 0.716f + (time * trackSpeed), 0);
-                firstNote.transform.position = new Vector3(0, 0.716f + (firstNoteTime * trackSpeed), 0);
-                secondNote.transform.position = new Vector3(0, 0.716f + (secondNoteTime * trackSpeed), 0);
+                firstNote.transform.position = new Vector3(0, noteOffset + (firstNoteTime * trackSpeed), 0);
+                secondNote.transform.position = new Vector3(0, noteOffset + (secondNoteTime * trackSpeed), 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
             case HOLD_NOTE_TYPE.HD:
-                // transform.position = new Vector3(0, -(0.716f + (time * trackSpeed)), 0);
-                firstNote.transform.position = new Vector3(0, -(0.716f + (firstNoteTime * trackSpeed)), 0);
-                secondNote.transform.position = new Vector3(0, -(0.716f + (secondNoteTime * trackSpeed)), 0);
+                firstNote.transform.position = new Vector3(0, -(noteOffset + (firstNoteTime * trackSpeed)), 0);
+                secondNote.transform.position = new Vector3(0, -(noteOffset + (secondNoteTime * trackSpeed)), 0);
                 firstNote.setTime(firstNoteTime);
                 secondNote.setTime(secondNoteTime);
                 break;
         }
     }
-
-    public int checkHit()
-    {
-        // if the time is between the window, count as hit
-        //good
-        if (Mathf.Abs(time) < 0.15f)
-        {
-            return 1;
-        }
-        //great
-        else if (Mathf.Abs(time) < 0.10f)
-        {
-            return 2;
-        }
-        //perfect
-        else if (Mathf.Abs(time) < 0.5f)
-        {
-            return 3;
-        }
-        else
-        {
-            return 4;
-        }
-    }
-
     void takeDamage()
     {
         // talk to parent class about damage

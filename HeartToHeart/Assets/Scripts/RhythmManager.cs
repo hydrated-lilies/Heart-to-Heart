@@ -28,10 +28,11 @@ public class RhythmManager : MonoBehaviour
     static float invTime = 2.0f;
 
     // bool for advancing notes
-    bool notePause = false;
+    bool notePause = true;
 
     // song source + songs
-    public AudioSource audSource;
+    public AudioSource audSource, sfxAudSource;
+    public AudioClip perfectSFX, goodSFX, badSFX;
     public List<AudioClip> musicTracks;
 
     // track for notes
@@ -57,13 +58,10 @@ public class RhythmManager : MonoBehaviour
         health = 4; // change this based on difficulty
         combo = 0;
         inv = false;
+        sfxAudSource.volume = 0.5f;
 
         // get camera for canvas
         GameObject.Find("GameScreenCanvas").GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-
-        // note lists
-        holdNotes = noteGen.getHoldNotes("Map/tutorial/holdMap");
-        notes = noteGen.getNotes("Map/tutorial/map");
 
         // timing loading
         gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
@@ -76,15 +74,36 @@ public class RhythmManager : MonoBehaviour
 
         // set song
         notePause = true;
-        audSource.clip = musicTracks[0];
+    }
 
-        Invoke("startSong", 2f);
+    void loadMapNotes(string folder)
+    {
+        // note lists
+        holdNotes = noteGen.getHoldNotes(folder + "holdMap");
+        notes = noteGen.getNotes(folder + "map");
     }
 
     public void setMusicTrack(int track, GameObject vnReference)
     {
         parent = vnReference.GetComponent<VN_Control>();
         audSource.clip = musicTracks[track];
+
+        // load note maps depending on the game
+        string folder;
+        switch(track)
+        {
+            default:
+            case 0:
+                folder = "Map/tutorial/";
+                break;
+            case 1:
+                folder = "Map/wesley/";
+                break;
+        }
+
+        loadMapNotes(folder);
+
+        Invoke("startSong", 2f);
     }
 
     public void startSong()
@@ -180,6 +199,8 @@ public class RhythmManager : MonoBehaviour
         }
         if (Input.GetKeyDown("d"))
         {
+            print(Time.time - 2f);
+
             ringR.flashRing();
             if (!checkHoldNoteTap(NOTE_TYPE.HR))
             {
@@ -420,48 +441,38 @@ public class RhythmManager : MonoBehaviour
     }
     public void printCombo()
     {
-        /*if (combo < 6)
-        {
-
-        }
-        */
         comboText.text = "Combo: "+ combo;
+    }
+    public void sfxGrade(int grade)
+    {
+        switch (grade)
+        {
+            case 1:
+                // perfect
+                sfxAudSource.PlayOneShot(perfectSFX,1f);
+                break;
+            case 2:
+                // good
+                sfxAudSource.PlayOneShot(goodSFX, 1f);
+                break;
+            case 3:
+                // bad
+                sfxAudSource.PlayOneShot(badSFX, 1f);
+                break;
+        }
     }
     public void flashGrade(int grade, NOTE_TYPE type)
     {
-
         float duration = 0.6f;
-
         // end previous coroutine
         // call coroutine
+        sfxGrade(grade);
         StopCoroutine("printGrade");
         StartCoroutine(printGrade(duration, grade, type));
     }
     IEnumerator printGrade(float duration, int grade, NOTE_TYPE type)
     {
-        // Destroy(badObject);
-        // Destroy(goodObject);
-        // Destroy(perfectObject);
-        switch (grade)
-        {
-            case 1:
-                // perfect
-                // gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
-                // perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                break;
-            case 2:
-                // good
-                // gradePrefab.GetComponent<SpriteRenderer>().sprite = good;
-                // goodObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                break;
-            case 3:
-                // bad
-                // gradePrefab.GetComponent<SpriteRenderer>().sprite = bad;
-                // badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                break;
-        }
         float elapsed = 0;
-
         while (elapsed < duration)
         {
             // change alpha channel to decrease back to half opacity
@@ -483,9 +494,6 @@ public class RhythmManager : MonoBehaviour
             yield return null;
         }
         setZero();
-        // Destroy(badObject);
-        // Destroy(goodObject);
-        // Destroy(perfectObject);
     }
     public void setZero()
     {

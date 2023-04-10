@@ -15,17 +15,21 @@ public class VN_Control : MonoBehaviour
     public GameObject textbox;
     bool crawling = false;
 
-    // can players click?
+    // can players interact with the visual novel?
     bool interactable = false;
+
+    // AUTO MODE
+    bool autoMode = false;
 
     // information for the data being read from the file
     private List<string> VNScript;
     private int index;
 
-    // object to fade between scenes
+    // objects to fade between scenes
     public Image bg_fader;
     public Image scene_fader;
 
+    // ---- BACKGROUND LIST ---- //
     // 0 - APARTMENT
     // 1 - SUBWAY
     // 2 - OFFICE
@@ -34,15 +38,15 @@ public class VN_Control : MonoBehaviour
     public List<Texture> backgrounds;
     public RawImage currBg;
 
-    // manager for characters, and their graphics
+    // reference to the character manager
     public CharacterManager cManager;
-    public GameObject ariaVisual;
-    public GameObject npcVisual;
 
-    // sounds for text crawling and clicking noises
+    // sounds for text crawling and VN music
     public AudioSource txtBeep;
+    public AudioSource VN_music;
+    public List<AudioClip> VN_songs;
 
-    // container for game prefab
+    // prefab and gameobject to store the current rhythm game
     public GameObject gamePrefab;
     GameObject rhythmComponent;
 
@@ -56,19 +60,9 @@ public class VN_Control : MonoBehaviour
         StartCoroutine(FadeScene(true, 1f));
 
         index = -1;
-        ReadNextLine();
+
+        Invoke("ReadNextLine", 1f);
     }
-
-    void ReadScript(int sceneNumber)
-    {
-        // read lines using the stupid resources operation becaue of course this shit is packaged away in a place where I listerally can't get to it
-        string rawScript = Resources.Load<TextAsset>("VN_Files/scene" + sceneNumber).text;
-
-        // split it by newline delimeter because fuck it i guess why not ahaahaha
-        // THANK YOU TO THE KIND FOLKS WHO PROGRAMMED STRING ARRAY TO GIVE FUNCTONALITY TO CONVERT TO LISTS
-        VNScript = rawScript.Split("\n").ToList();
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -90,6 +84,16 @@ public class VN_Control : MonoBehaviour
         }
     }
 
+    // --------------------- SCRIPT READING CONTROL --------------------- //
+    void ReadScript(int sceneNumber)
+    {
+        // read lines using the stupid resources operation becaue of course this shit is packaged away in a place where I listerally can't get to it
+        string rawScript = Resources.Load<TextAsset>("VN_Files/scene" + sceneNumber).text;
+
+        // split it by newline delimeter because fuck it i guess why not ahaahaha
+        // THANK YOU TO THE KIND FOLKS WHO PROGRAMMED STRING ARRAY TO GIVE FUNCTONALITY TO CONVERT TO LISTS
+        VNScript = rawScript.Split("\n").ToList();
+    }
     void ReadNextLine()
     {
         index++;
@@ -105,11 +109,16 @@ public class VN_Control : MonoBehaviour
             return;
         }
 
-        // check for commands that don't affect the screen
-        while (VNScript[index].Contains("[Character]") || VNScript[index].Contains("[Toggle]") || VNScript[index] == "")
+        // -------- COMMANDS THAT SHOULD NOT REQUIRE A NOT INPUT CLICK GO IN HERE -------- //
+        while (VNScript[index].Contains("[Character]") || VNScript[index].Contains("[Toggle]") 
+                || VNScript[index].Contains("[Volume]") || VNScript[index].Contains("[Dim]") 
+                || VNScript[index].Contains("[Song]") || VNScript[index].Contains("[Auto]")
+                || VNScript[index].Length < 3)
         {
             if (VNScript[index].Contains("[Character]"))
                 cManager.ParseCharacter(VNScript[index].Substring(12));
+            else if (VNScript[index].Contains("[Song]"))
+                ChangeVNSong(VNScript[index].Substring(7));
             else if (VNScript[index].Contains("[Toggle]"))
             {
                 string toToggle = VNScript[index].Substring(9);
@@ -123,6 +132,43 @@ public class VN_Control : MonoBehaviour
                     cManager.FadeCharacterInOut(true);
                 }
             }
+            else if (VNScript[index].Contains("[Volume]"))
+            {
+                if (VNScript[index].Contains("[F]"))
+                {
+                    string rawLine = VNScript[index].Substring(9);
+                    string[] vals = rawLine.Split(" ");
+                    float vol = float.Parse(vals[0]);
+                    float duration = float.Parse(vals[2]);
+
+                    ChangeVNVolume(vol, true, duration);
+                }
+                else
+                {
+                    float vol = float.Parse(VNScript[index].Substring(9));
+                    ChangeVNVolume(vol);
+                }
+
+            }
+            else if (VNScript[index].Contains("[Dim]"))
+            {
+                if (VNScript[index].Contains("[F]"))
+                {
+                    string rawLine = VNScript[index].Substring(6);
+                    string[] vals = rawLine.Split(" ");
+                    float alpha = float.Parse(vals[0]);
+                    float duration = float.Parse(vals[2]);
+
+                    DimBG(alpha, true, duration);
+                }
+                else
+                {
+                    float alpha = float.Parse(VNScript[index].Substring(6));
+                    DimBG(alpha);
+                }
+            }
+            else if (VNScript[index].Contains("[Auto]"))
+                autoMode = !autoMode;
             index++;
         }
 
@@ -136,14 +182,7 @@ public class VN_Control : MonoBehaviour
         // read the next line!
         if (VNScript[index].Contains("[Line]"))
         {
-            // clear current text
-            txt.text = "";
-
-            string line = VNScript[index].Substring(7);
-            StartCoroutine(Type(line, cManager.activeCharacter.txtCol(), cManager.activeCharacter.txtSpeed(), cManager.activeCharacter.getTxtPitch()));
-
-            // shake char
-            cManager.ShakeCharacter(2.0f);
+            parseTypedLine();
         }
         else if (VNScript[index].Contains("[Background]"))
         {
@@ -171,37 +210,32 @@ public class VN_Control : MonoBehaviour
             // feed it the song it needs
             if (song.Contains("tutorial"))
                 rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
-            // placeholder for now
-            else
-                rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(0, gameObject);
+            else if (song.Contains("Wesley"))
+                rhythmComponent.GetComponentInChildren<RhythmManager>().setMusicTrack(1, gameObject);
 
             // disable VN interactability
             txt.gameObject.GetComponentInParent<Image>().gameObject.SetActive(false);
             interactable = false;
 
-            // dimbg, clear text
-            StartCoroutine(DimBG(0.35f, 1f));
             txt.text = "";
 
-            // start song
-            rhythmComponent.GetComponentInChildren<RhythmManager>().startSong();
+            // start song (done automagically in rhythm manager)
         }
     }
-
-    public void CompleteSong()
+    void parseTypedLine()
     {
-        Destroy(rhythmComponent);
+        // clear current text
+        txt.text = "";
 
-        // let the VN be usable again
-        txt.gameObject.GetComponentInParent<Image>(true).gameObject.SetActive(true);
-        interactable = true;
+        // enable nametag
+        cManager.SetNameTag(true);
 
-        // undim bg
-        StartCoroutine(DimBG(1f, 1f));
+        string line = VNScript[index].Substring(7);
+        StartCoroutine(Type(line, cManager.activeCharacter.txtCol(), cManager.activeCharacter.txtSpeed(), cManager.activeCharacter.getTxtPitch()));
 
-        ReadNextLine();
+        // shake char
+        cManager.ShakeCharacter(2.0f);
     }
-
     IEnumerator Type(string line, Color col, float speed, float pitch)
     {
         // set text color
@@ -231,9 +265,77 @@ public class VN_Control : MonoBehaviour
         }
 
         crawling = false;
+
+        // if in auto mode, type the next line
+        if (autoMode)
+            ReadNextLine();
     }
-    void ChangeBG(string bg, bool fade)
+
+    // --------------------- RHYTHM COMPONENT & MUSIC CONTROL --------------------- //
+    public void CompleteSong()
     {
+        Destroy(rhythmComponent);
+
+        // let the VN be usable again
+        txt.gameObject.GetComponentInParent<Image>(true).gameObject.SetActive(true);
+        interactable = true;
+
+        // undim bg
+        StartCoroutine(DimBG(1f, 1f));
+
+        ReadNextLine();
+    }
+    void ChangeVNSong(string songName)
+    {
+        // get current time
+        float currTime = VN_music.time;
+        // pause audio
+
+        VN_music.Pause();
+
+        if (songName.Contains("calm"))
+            VN_music.clip = VN_songs[0];
+        else if (songName.Contains("upbeat"))
+            VN_music.clip = VN_songs[1];
+        else
+            print("no song of name:" + songName);
+
+        // play
+        VN_music.Play();
+
+        // set time
+        VN_music.time = currTime;
+    }
+    void ChangeVNVolume(float val, bool fade = false, float duration = 1f)
+    {
+        // if not fading, change value
+        if (!fade)
+            VN_music.volume = val;
+        // if fading, call coroutine
+        else
+            StartCoroutine(ChangeVNVolFade(val, duration));
+    }
+    IEnumerator ChangeVNVolFade(float val, float duration)
+    {
+        float currTime = 0;
+        float currVol = VN_music.volume;
+        float step = (val - currVol) / duration;
+
+        while (currTime < duration)
+        {
+            currTime += Time.deltaTime;
+            VN_music.volume += step * Time.deltaTime;
+
+            yield return null;
+        }
+
+        VN_music.volume = val;
+    }
+
+    // --------------------- BACKGROUND CONTROL --------------------- //
+    void ChangeBG(string bg, bool fade, float wait = 1.0f)
+    {
+
         float length = 0f;
 
         if (fade)
@@ -252,7 +354,7 @@ public class VN_Control : MonoBehaviour
         else
             StartCoroutine(ChangeBG(backgrounds[3], length));
     }
-    IEnumerator ChangeBG(Texture bgChange, float duration)
+    IEnumerator ChangeBG(Texture bgChange, float duration, float extrWait = 1.0f)
     {
         interactable = false;
         float time = 0;
@@ -273,6 +375,12 @@ public class VN_Control : MonoBehaviour
         txt.text = "";
         // change bg texture
         currBg.texture = bgChange;
+        // disable nametag
+        cManager.SetNameTag(false);
+
+        // wait for the amount of time, if needed
+        if (extrWait > 0.05f)
+            yield return new WaitForSeconds(extrWait);
 
         // fade to transparent
         time = 0;
@@ -285,7 +393,39 @@ public class VN_Control : MonoBehaviour
         }
         bg_fader.color = new Color(0, 0, 0, 0);
         interactable = true;
+
+        // read next line
+        ReadNextLine();
     }
+    void DimBG(float val, bool fade = false, float duration = 1f)
+    {
+        // if not fading, change val
+        if (!fade)
+            currBg.color = new Color(1, 1, 1, val);
+        else
+            StartCoroutine(DimBG(val, duration));
+    }
+    IEnumerator DimBG(float val, float duration)
+    {
+        float curLevel = currBg.color.a;
+        float step = (val - curLevel) / duration;
+
+        float curTime = 0f;
+
+        while (curTime < duration)
+        {
+            curTime += Time.deltaTime;
+            currBg.color = new Color(1, 1, 1, curLevel + (step * curTime));
+
+            yield return null;
+        }
+
+        // then set to min/max to make sure we have no floating point issues
+        currBg.color = new Color(1, 1, 1, val);
+
+    }
+
+    // --------------------- SCENE MANGEMENT AND TIMING CONTROL --------------------- //
     IEnumerator FadeScene(bool dir, float duration)
     {
         // wait for a brief moment
@@ -319,27 +459,6 @@ public class VN_Control : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         interactable = true;
-    }
-    IEnumerator DimBG(float level, float duration)
-    {
-        // wait for a brief moment
-        yield return new WaitForSeconds(duration);
-
-        float curLevel = currBg.color.a;
-        float step = (level - curLevel) / duration;
-
-        float curTime = 0f;
-
-        while (curTime < duration)
-        {
-            curTime += Time.deltaTime;
-            currBg.color = new Color(1, 1, 1, curLevel + (step * curTime));
-
-            yield return null;
-        }
-
-        currBg.color = new Color(1, 1, 1, level);
-
-        // then set to min/max to make sure we have no floating point issues
+        ReadNextLine();
     }
 }

@@ -6,9 +6,8 @@ using System;
 using System.Linq;
 public class WriteMap : MonoBehaviour
 {
-
+    public float timeOffset;
     public enum NOTE_TYPE { U, D, L, R, UL, UR, DL, DR };
-    float time = 0;
 
     // play the song
     public AudioSource source;
@@ -37,13 +36,21 @@ public class WriteMap : MonoBehaviour
         {
             writer.Write("");
         }
+
+        source.Play();
+    }
+
+    void playDelayed()
+    {
         source.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        if (source == null || (!source.isPlaying))
+            return;
+
         tapTracking();
     }
 
@@ -54,16 +61,15 @@ public class WriteMap : MonoBehaviour
         {
             ringU.flashRing();
             // Write some text to the file
-            WriteToFile("U " + time);
+            WriteToFile("U " + (Time.time-0.1).ToString());
             heldTime = Time.time;
             StartCoroutine(diagonalTracking(0.1f, NOTE_TYPE.U));
         }
         
         else if (Input.GetKeyUp("w"))
         {
-           
-            heldTime = Time.time-heldTime;
-            float temp = time - heldTime;
+            heldTime = Time.time - heldTime;
+            float temp = Time.time - heldTime;
             WriteToHoldFile("HU " + temp + " " + heldTime);
             if (heldTime < maxHeldTime)
             {
@@ -80,19 +86,18 @@ public class WriteMap : MonoBehaviour
         if (Input.GetKeyDown("a"))
         {
             ringL.flashRing();
-            WriteToFile("L " + time);
+            WriteToFile("L " + (Time.time-0.1).ToString());
             heldTime2 = Time.time;
             StartCoroutine(diagonalTracking(0.1f, NOTE_TYPE.L));
         }
         else if (Input.GetKeyUp("a"))
         {
             heldTime2 = Time.time - heldTime2;
-            float temp = time - heldTime2;
+            float temp = Time.time - heldTime2;
             WriteToHoldFile("HL " + temp + " " + heldTime2);
             if (heldTime2 < maxHeldTime)
             {
                 RemoveLastHoldLine();
-
             }
             else
             {
@@ -103,7 +108,7 @@ public class WriteMap : MonoBehaviour
         if (Input.GetKeyDown("s"))
         {
             ringD.flashRing();
-            WriteToFile("D " + time);
+            WriteToFile("D " + (Time.time-0.1).ToString());
             heldTime3 = Time.time;
             StartCoroutine(diagonalTracking(0.1f, NOTE_TYPE.D));
         }
@@ -111,7 +116,7 @@ public class WriteMap : MonoBehaviour
         else if (Input.GetKeyUp("s"))
         {
             heldTime3 = Time.time - heldTime3;
-            float temp = time - heldTime3;
+            float temp = Time.time - heldTime3;
             WriteToHoldFile("HD " + temp + " " + heldTime3);
             if (heldTime3 < maxHeldTime)
             {
@@ -127,14 +132,14 @@ public class WriteMap : MonoBehaviour
         if (Input.GetKeyDown("d"))
         {
             ringR.flashRing();
-            WriteToFile("R " + time);
+            WriteToFile("R " + (Time.time-0.1).ToString());
             heldTime4 = Time.time;
             StartCoroutine(diagonalTracking(0.1f, NOTE_TYPE.R));
         }
         else if (Input.GetKeyUp("d"))
         {
             heldTime4 = Time.time - heldTime4;
-            float temp = time - heldTime4;
+            float temp = Time.time - heldTime4;
             WriteToHoldFile("HR " + temp + " " + heldTime4);
             if (heldTime4 < maxHeldTime)
             {
@@ -166,14 +171,14 @@ public class WriteMap : MonoBehaviour
                 {
 
                     RemoveLastLine();
-                    WriteToFile("UL " + time);
+                    WriteToFile("UL " + (Time.time-0.1).ToString());
                     break;
                 }
                 // RIGHT
                 if (Input.GetKeyDown("d"))
                 {
                     RemoveLastLine();
-                    WriteToFile("UR " + time);
+                    WriteToFile("UR " + (Time.time-0.1).ToString());
                     break; 
                 }
             }
@@ -184,14 +189,14 @@ public class WriteMap : MonoBehaviour
                 if (Input.GetKeyDown("a"))
                 {
                     RemoveLastLine();
-                    WriteToFile("DL " + time);
+                    WriteToFile("DL " + (Time.time-0.1).ToString());
                     break;
                 }
                 // RIGHT
                 if (Input.GetKeyDown("d"))
                 {
                     RemoveLastLine();
-                    WriteToFile("DR " + time);
+                    WriteToFile("DR " + (Time.time-0.1).ToString());
                     break;
                 }
             }
@@ -202,14 +207,14 @@ public class WriteMap : MonoBehaviour
                 if (Input.GetKeyDown("w"))
                 {
                     RemoveLastLine();
-                    WriteToFile("UL " + time);
+                    WriteToFile("UL " + (Time.time-0.1).ToString());
                     break;
                 }
                 // DOWN
                 if (Input.GetKeyDown("s"))
                 {
                     RemoveLastLine();
-                    WriteToFile("DL " + time);
+                    WriteToFile("DL " + (Time.time-0.1).ToString());
                     break;
                 }
             }
@@ -220,14 +225,14 @@ public class WriteMap : MonoBehaviour
                 if (Input.GetKeyDown("w"))
                 {
                     RemoveLastLine();
-                    WriteToFile("UR " + time);
+                    WriteToFile("UR " + (Time.time-0.1).ToString());
                     break;
                 }
                 // DOWN
                 if (Input.GetKeyDown("s"))
                 {
                     RemoveLastLine();
-                    WriteToFile("DR " + time);
+                    WriteToFile("DR " + (Time.time-0.1).ToString());
                     break;
                 }
             }
