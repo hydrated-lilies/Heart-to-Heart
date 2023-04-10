@@ -441,11 +441,6 @@ public class RhythmManager : MonoBehaviour
     }
     public void printCombo()
     {
-        /*if (combo < 6)
-        {
-
-        }
-        */
         comboText.text = "Combo: "+ combo;
     }
     public void sfxGrade(int grade)
@@ -468,9 +463,7 @@ public class RhythmManager : MonoBehaviour
     }
     public void flashGrade(int grade, NOTE_TYPE type)
     {
-
         float duration = 0.6f;
-
         // end previous coroutine
         // call coroutine
         sfxGrade(grade);
@@ -479,29 +472,7 @@ public class RhythmManager : MonoBehaviour
     }
     IEnumerator printGrade(float duration, int grade, NOTE_TYPE type)
     {
-        // Destroy(badObject);
-        // Destroy(goodObject);
-        // Destroy(perfectObject);
-        switch (grade)
-        {
-            case 1:
-                // perfect
-                // gradePrefab.GetComponent<SpriteRenderer>().sprite = perfect;
-                // perfectObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                break;
-            case 2:
-                // good
-                // gradePrefab.GetComponent<SpriteRenderer>().sprite = good;
-                // goodObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                break;
-            case 3:
-                // bad
-                // gradePrefab.GetComponent<SpriteRenderer>().sprite = bad;
-                // badObject = Instantiate(gradePrefab, (gradeLocationRight.transform));
-                break;
-        }
         float elapsed = 0;
-
         while (elapsed < duration)
         {
             // change alpha channel to decrease back to half opacity
@@ -523,9 +494,6 @@ public class RhythmManager : MonoBehaviour
             yield return null;
         }
         setZero();
-        // Destroy(badObject);
-        // Destroy(goodObject);
-        // Destroy(perfectObject);
     }
     public void setZero()
     {
