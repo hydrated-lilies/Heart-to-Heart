@@ -1,5 +1,6 @@
 HeartToHeart/Library/*
 MapWriter/Library/*
+HeartToHeart/Builds/*
 *.log
 *.log
 MapWriter/Assets/map.txt

@@ -485,6 +485,7 @@
 [Toggle] Aria
 [Volume] 0 [F] 0.5
 
+
 [Background] [F] Apartment
 
 
@@ -507,6 +508,7 @@
 [Line] Well, probably shouldn't stand around doin' nothing~.
 [Line] Let's get to work...
 [Toggle] Aria
+
 
 [Background] [F] Black
 [Wait] 5
