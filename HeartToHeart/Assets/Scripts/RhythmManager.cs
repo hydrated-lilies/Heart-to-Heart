@@ -199,8 +199,6 @@ public class RhythmManager : MonoBehaviour
         }
         if (Input.GetKeyDown("d"))
         {
-            print(Time.time - 2f);
-
             ringR.flashRing();
             if (!checkHoldNoteTap(NOTE_TYPE.HR))
             {
