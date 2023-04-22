@@ -9,9 +9,9 @@ The game is built on the Unity engine, using C# scripting. A working demo with a
 * [Credits](https://github.com/hydrated-lilies/Heart-to-Heart#credits-)
 
 ## Installation Instructions ![Heart](https://user-images.githubusercontent.com/58494116/221059253-5c3e8f1b-22cd-4c9e-9f72-c7f14f696b4c.png)
-1. Click on the [latest release](https://github.com/hydrated-lilies/Heart-to-Heart) on the sidebar (not currently available).
+1. Click [here to download the game](https://drive.google.com/file/d/1vcQZ5HsP3pJ0tMBcjS0oacC3BmlvK7FO/view?usp=sharing) to your computer.
 2. Download the .zip file.
-3. Unzip the file and start playing!
+3. Unzip the file and start playing by double-clicking HeartToHeart.exe!
 
 ## How to Contribute ![Heart](https://user-images.githubusercontent.com/58494116/221059253-5c3e8f1b-22cd-4c9e-9f72-c7f14f696b4c.png)
 Contributions are welcome! Here are some things you can add:
