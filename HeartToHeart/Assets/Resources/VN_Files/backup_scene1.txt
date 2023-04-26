@@ -270,7 +270,6 @@
 [Character] Carrie
 [Line] See you tomorrow!
 [Toggle] npc
-[Toggle] Aria
 [Volume] 0 [F] 0.5
 
 
