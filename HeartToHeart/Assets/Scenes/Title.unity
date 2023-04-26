@@ -2717,14 +2717,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Notes can be \"caught\" on the ring centered around the heart. \n(The
     more you line up a note to the ring, the better the timing!)\n\nBLUE notes are
-    caught using the W, A, S, or D key depending on the cardinal  the note is coming
-    from.\n\nPURPLE notes are caugh using a combination of keys to represent the
-    diagonal.\n(A note on the top right requires W and R to be pressed at the same
-    time!)\n\nDUO notes are blue notes with a white inside. They only come in the
-    cardinal directions, and must be pressed at the same time.\n(A duo note coming
+    caught using the W, A, S, or D key depending on the cardinal diration the note
+    is coming from.\n\nPURPLE notes are caught using a combination of keys to represent
+    the diagonal.\n(A note on the top right requires W and D to be pressed at the
+    same time!)\n\nDUO notes are blue notes with a white inside. They only come in
+    the cardinal directions, and must be pressed at the same time.\n(A duo note coming
     from the top and bottom requires W and S to be pressed)\n\nHOLD notes are blue
-    with a TRACK between each end. You must PRESS and HOLD the key down to catch
-    this note."
+    with a light blue track between each end. You must PRESS and HOLD the key down
+    to catch this note."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4a6f0090790e8a545a69f36f67051328, type: 2}
   m_sharedMaterial: {fileID: 8638648851690842072, guid: 4a6f0090790e8a545a69f36f67051328, type: 2}
