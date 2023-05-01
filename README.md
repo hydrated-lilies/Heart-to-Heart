@@ -25,9 +25,9 @@ Contributions are welcome! Here are some things you can add:
   5. Wait for your pull request to be merged.
   
 ## Credits ![Heart](https://user-images.githubusercontent.com/58494116/221059253-5c3e8f1b-22cd-4c9e-9f72-c7f14f696b4c.png)
-We are a team of 4th year University of Florida students, working on our Senior Project!
+Below is our wonderful team!
 
-Lily Maloney - https://github.com/Lukewarm-Water
+Lily Maloney (Lead) - https://github.com/Lukewarm-Water
 
 Raj Persaud - https://github.com/Rajudarshan
 
